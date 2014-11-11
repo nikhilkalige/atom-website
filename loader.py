@@ -1,6 +1,6 @@
 from flask.ext.script import Command
-from app.models import Package, Downloads
-from app import db
+from app.packages.models import Package, Downloads
+#from app import db
 import requests
 import datetime
 import sys
@@ -11,13 +11,17 @@ atom_link = "https://atom.io/api/packages?page="
 
 
 class Load(Command):
+    def __init__(self, db):
+        self.db = db
+
     def run(self):
         i = 1
         while True:
             req = requests.get(atom_link + repr(i))
             i = i + 1
             if (req.status_code != requests.codes.ok) or (req.json() == []):
-                break
+                if i is 3:
+                    break
 
             for value in req.json():
                 name = value.get('name')
@@ -54,8 +58,8 @@ class Load(Command):
                                     description=meta.get('description')
                                     )
 
-                db.session.add(query)
+                self.db.session.add(query)
                 downl_model = Downloads(downloads=down_no, package=query)
 
-                db.session.add(downl_model)
-                db.session.commit()
+                self.db.session.add(downl_model)
+                self.db.session.commit()
