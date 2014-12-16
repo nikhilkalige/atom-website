@@ -1,0 +1,27 @@
+{
+  "name": "atom-website",
+  "version": "1.0.0",
+  "description": "atom-website ============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikhilkalige/atom-website"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikhilkalige/atom-website/issues"
+  },
+  "homepage": "https://github.com/nikhilkalige/atom-website",
+  "devDependencies": {
+    "browserify": "^7.0.0",
+    "gulp": "^3.8.10"
+  },
+  "dependencies": {
+    "ampersand-state": "^4.4.2",
+    "underscore": "^1.7.0"
+  }
+}
