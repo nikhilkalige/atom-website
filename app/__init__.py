@@ -20,11 +20,9 @@ def create_app(environment):
 def create_restless_api(app):
     manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
 
-    from app.packages.models import Package
-    manager.create_api(Package, methods=['GET'])
+    from app.packages import api_creator
+    api_creator(manager)
 
 #app.config.from_object(config)
 #db = SQLAlchemy(app)
 #from app import views, models
-
-
