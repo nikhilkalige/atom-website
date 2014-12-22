@@ -1,0 +1,42 @@
+{
+  "name": "atom-website",
+  "version": "1.0.0",
+  "description": "atom-website",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikhilkalige/atom-website"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikhilkalige/atom-website/issues"
+  },
+  "homepage": "https://github.com/nikhilkalige/atom-website",
+  "dependencies": {
+    "ampersand-collection": "^1.3.17",
+    "ampersand-dom": "^1.2.1",
+    "ampersand-form-view": "^2.0.0",
+    "ampersand-input-view": "^2.0.0",
+    "ampersand-model": "^4.0.0",
+    "ampersand-rest-collection": "^2.0.0",
+    "ampersand-router": "^1.0.1",
+    "ampersand-state": "^4.4.2",
+    "ampersand-subcollection": "^1.5.0",
+    "ampersand-view": "^7.0.1",
+    "ampersand-view-switcher": "^1.0.2",
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "browserify": "^7.0.0",
+    "gulp": "^3.8.10",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-util": "^3.0.1",
+    "handlebars": "^2.0.0",
+    "hbsfy": "^2.2.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0",
+    "watch": "^0.13.0",
+    "watchify": "^2.2.1"
+  }
+}

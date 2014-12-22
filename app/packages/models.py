@@ -13,6 +13,19 @@ class Package(db.Model):
     def __repr__(self):
         return 'Package: %s' % self.name
 
+    @classmethod
+    def get_count(self):
+        return Package.query.count()
+
+
+class DbFlags(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, default=datetime.date.today, nullable=False)
+    flag = db.Column(db.Boolean, nullable=False)
+
+    def __repr__(self):
+        return 'DbFlags: {} {}'.format(self.date, self.flag)
+
 
 class Downloads(db.Model):
     id = db.Column(db.Integer, primary_key=True)

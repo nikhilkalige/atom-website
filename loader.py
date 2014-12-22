@@ -1,5 +1,5 @@
 from flask.ext.script import Command
-from app.packages.models import Package, Downloads
+from app.packages.models import Package, Downloads, DbFlags
 #from app import db
 import requests
 import datetime
@@ -22,8 +22,23 @@ class Load(Command):
         self.new_packages = 0
         self.skipped_packages = 0
 
+    def flag_db(self, status):
+        entry = DbFlags.query.filter(DbFlags.id == 1).all()
+        if not entry:
+            # create a default entry
+            entry = DbFlags(date=datetime.date.today(), flag=False)
+            self.db.session.add(entry)
+            self.db.session.commit()
+
+        # update the entry with status and date
+        if status is False:
+            entry.date = datetime.date.today()
+        entry.flag = status
+        self.db.session.commit()
+
     def run(self):
         i = 1
+        self.flag_db(True)
         while True:
             req = requests.get(atom_link + repr(i))
             i = i + 1
@@ -89,3 +104,6 @@ class Load(Command):
 
                 self.db.session.add(downl_model)
                 self.db.session.commit()
+
+        # we are done updating db, unflag db
+        self.flag_db(False)

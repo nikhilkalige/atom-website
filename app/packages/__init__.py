@@ -5,6 +5,10 @@ packages = Blueprint('packages', __name__)
 
 from . import views, models
 
+
+def api_creator(apimanager):
+    apimanager.create_api(models.Package, methods=['GET'])
+
 #app = Flask(__name__)
 
 
