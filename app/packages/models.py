@@ -18,7 +18,7 @@ class Package(db.Model):
         return Package.query.count()
 
 
-class DbFlags(db.model):
+class DbFlags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, default=datetime.date.today, nullable=False)
     flag = db.Column(db.Boolean, nullable=False)
