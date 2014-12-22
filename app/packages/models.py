@@ -23,6 +23,9 @@ class DbFlags(db.Model):
     date = db.Column(db.DateTime, default=datetime.date.today, nullable=False)
     flag = db.Column(db.Boolean, nullable=False)
 
+    def __repr__(self):
+        return 'DbFlags: {} {}'.format(self.date, self.flag)
+
 
 class Downloads(db.Model):
     id = db.Column(db.Integer, primary_key=True)
