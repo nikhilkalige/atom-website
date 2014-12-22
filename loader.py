@@ -30,7 +30,9 @@ class Load(Command):
             self.db.session.add(entry)
             self.db.session.commit()
 
-        # update the entry with status
+        # update the entry with status and date
+        if status is False:
+            entry.date = datetime.date.today()
         entry.flag = status
         self.db.session.commit()
 
