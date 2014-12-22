@@ -26,9 +26,41 @@ class DbFlags(db.Model):
     def __repr__(self):
         return 'DbFlags: {} {}'.format(self.date, self.flag)
 
+    @classmethod
+    def get_update_time(self):
+        return self.query.filter(self.id == 1).first().date
+
 
 class Downloads(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     downloads = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, default=datetime.date.today, nullable=False)
     package_id = db.Column(db.Integer, db.ForeignKey('package.id'), nullable=False)
+
+    @classmethod
+    def nearest_last_entry(self, time):
+        while self.query.filter(self.date == time).count() <= 0:
+            time -= datetime.timedelta(days=1)
+
+        return time
+
+    @classmethod
+    def __count_downloads(self, entries):
+        count = 0
+        for entry in entries:
+            count += entry.downloads
+
+        return count
+
+    # period should be a datetime.timedelta
+    @classmethod
+    def get_downloads_count(self, period):
+        current_time = DbFlags.get_update_time()
+        current_entries = self.query.filter(self.date == current_time).all()
+        old_time = self.nearest_last_entry(current_time - period)
+        old_entries = self.query.filter(self.date == old_time).all()
+
+        current_downloads = self.__count_downloads(current_entries)
+        old_downloads = self.__count_downloads(old_entries)
+        print current_downloads, old_downloads
+        return current_downloads - old_downloads
