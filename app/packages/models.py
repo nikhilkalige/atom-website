@@ -1,5 +1,6 @@
 from app import db
 import datetime
+import json
 
 
 class Package(db.Model):
@@ -18,6 +19,26 @@ class Package(db.Model):
     def get_count(self):
         return Package.query.count()
 
+    @classmethod
+    def get_json(self, name):
+        package_obj = self.query.filter(self.name == name).first()
+        if package_obj is None:
+            return json.dumps([])
+
+        json_data = dict()
+        # add following parameters to dict
+        for label in ['name', 'author', 'link', 'description']:
+            json_data[label] = getattr(package_obj, label)
+
+        version_obj = package_obj.version.order_by(Version.id.desc()).first()
+        version_data = version_obj.get_json()
+
+        downloads_data = Downloads.get_json(package_obj.downloads)
+        json_data['version'] = version_data
+        json_data['downloads'] = downloads_data
+
+        return json_data
+
 
 class Version(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,6 +48,13 @@ class Version(db.Model):
 
     def __repr__(self):
         return 'Ver: {} on {}'.format(self.number, self.date)
+
+    def get_json(self):
+        json_data = dict()
+        json_data['number'] = self.number
+        json_data['date'] = self.date.isoformat()
+
+        return json_data
 
 
 class DbFlags(db.Model):
@@ -50,7 +78,11 @@ class Downloads(db.Model):
 
     @classmethod
     def nearest_last_entry(self, time):
+        last_date = self.query.order_by(False).first().date
         while self.query.filter(self.date == time).count() <= 0:
+            if last_date >= time:
+                time = last_date
+                break
             time -= datetime.timedelta(days=1)
 
         return time
@@ -65,7 +97,7 @@ class Downloads(db.Model):
 
     # period should be a datetime.timedelta
     @classmethod
-    def get_downloads_count(self, period):
+    def get_overall_downloads_count(self, period):
         current_time = DbFlags.get_update_time()
         current_entries = self.query.filter(self.date == current_time).all()
         old_time = self.nearest_last_entry(current_time - period)
@@ -74,3 +106,33 @@ class Downloads(db.Model):
         current_downloads = self.__count_downloads(current_entries)
         old_downloads = self.__count_downloads(old_entries)
         return current_downloads - old_downloads
+
+    @classmethod
+    def get_package_downloads_count(self, query, period):
+        current_time = query.first().date
+        time = current_time - period
+        last_date = query.order_by(False).first().date
+
+        while query.filter(self.date == time).first() is None:
+            if last_date >= time:
+                time = last_date
+                break
+            time -= datetime.timedelta(days=1)
+
+        count = query.filter(self.date == time).first().downloads
+        print current_time, time, last_date, time, count
+        return count
+
+    @classmethod
+    def get_json(self, query):
+        json_data = dict()
+        query = query.order_by(self.id.desc())
+        json_data['total'] = query.first().downloads
+        count = self.get_package_downloads_count(query, datetime.timedelta(days=30))
+        json_data['month'] = json_data['total'] - count
+        count = self.get_package_downloads_count(query, datetime.timedelta(days=7))
+        json_data['week'] = json_data['total'] - count
+        count = self.get_package_downloads_count(query, datetime.timedelta(days=1))
+        json_data['day'] = json_data['total'] - count
+
+        return json_data
