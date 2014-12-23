@@ -11,9 +11,9 @@ def create_app(environment):
     app.config.from_object(config[environment])
     db.init_app(app)
 
-    create_restless_api(app)
     from packages import packages
     app.register_blueprint(packages, url_prefix='/package')
+    create_restless_api(app)
     return app
 
 
