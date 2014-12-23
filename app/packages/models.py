@@ -9,6 +9,7 @@ class Package(db.Model):
     link = db.Column(db.String(140))
     description = db.Column(db.String())
     downloads = db.relationship('Downloads', backref='package', lazy='dynamic')
+    version = db.relationship('Version', backref='package', lazy='dynamic')
 
     def __repr__(self):
         return 'Package: %s' % self.name
@@ -16,6 +17,16 @@ class Package(db.Model):
     @classmethod
     def get_count(self):
         return Package.query.count()
+
+
+class Version(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.String(50), nullable=False)
+    date = db.Column(db.DateTime, default=datetime.date.today, nullable=False)
+    package_id = db.Column(db.Integer, db.ForeignKey('package.id'), nullable=False)
+
+    def __repr__(self):
+        return 'Ver: {} on {}'.format(self.number, self.date)
 
 
 class DbFlags(db.Model):
@@ -62,5 +73,4 @@ class Downloads(db.Model):
 
         current_downloads = self.__count_downloads(current_entries)
         old_downloads = self.__count_downloads(old_entries)
-        print current_downloads, old_downloads
         return current_downloads - old_downloads
