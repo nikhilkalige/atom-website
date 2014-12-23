@@ -1,5 +1,5 @@
 from flask.ext.script import Command
-from app.packages.models import Package, Downloads, DbFlags
+from app.packages.models import Package, Downloads, DbFlags, Version
 #from app import db
 import requests
 import datetime
@@ -7,12 +7,14 @@ import sys
 import traceback
 import re
 import time
+import semantic_version
+
 
 atom_link = "https://atom.io/api/packages?page="
 
 
-
 class Load(Command):
+
     def __init__(self, app, db):
         self.app = app
         self.db = db
@@ -23,7 +25,7 @@ class Load(Command):
         self.skipped_packages = 0
 
     def flag_db(self, status):
-        entry = DbFlags.query.filter(DbFlags.id == 1).all()
+        entry = DbFlags.query.filter(DbFlags.id == 1).first()
         if not entry:
             # create a default entry
             entry = DbFlags(date=datetime.date.today(), flag=False)
@@ -36,6 +38,12 @@ class Load(Command):
         entry.flag = status
         self.db.session.commit()
 
+    def version_update(self, sem_ver, package):
+        ver = package.version.order_by(Version.id.desc()).first()
+        if (ver is None) or (sem_ver > semantic_version.Version(ver.number, partial=True)):
+            ver_model = Version(number=str(sem_ver), package=package)
+            self.db.session.add(ver_model)
+
     def run(self):
         i = 1
         self.flag_db(True)
@@ -45,13 +53,17 @@ class Load(Command):
             if (req.status_code != requests.codes.ok) or (req.json() == []):
                 end_time = time.time()
                 lapse = end_time - self.start_time
-                self.app.logger.info("\nTotal Pages: %d\n"
+                self.app.logger.info(
+                    "\nTotal Pages: %d\n"
                     "Total Packages: %d\n"
                     " Updated : %d\n"
                     " New     : %d\n"
                     " Skipped : %d\n"
                     "Run time: %dm %ds\n",
-                    i-1, self.no_of_packages, self.no_of_updates, self.new_packages, self.skipped_packages, lapse/60, lapse%60)
+                    (i - 1), self.no_of_packages, self.no_of_updates,
+                    self.new_packages, self.skipped_packages, (lapse / 60),
+                    lapse % 60
+                )
                 break
 
             for value in req.json():
@@ -86,7 +98,11 @@ class Load(Command):
                 else:
                     print("author error", name)
 
-                down_no = 0 if value.get('downloads') is None else value.get('downloads')
+                down_no = value.get('downloads') if value.get(
+                    'downloads') is not None else 0
+                ver_no = meta.get('version') if meta.get(
+                    'version') is not None else '0.0.0'
+                sem_ver = semantic_version.Version(ver_no, partial=True)
 
                 query = Package.query.filter_by(name=name).first()
                 if query is None:
@@ -101,8 +117,9 @@ class Load(Command):
 
                 self.db.session.add(query)
                 downl_model = Downloads(downloads=down_no, package=query)
-
                 self.db.session.add(downl_model)
+                self.version_update(sem_ver, query)
+
                 self.db.session.commit()
 
         # we are done updating db, unflag db
