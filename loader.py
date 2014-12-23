@@ -102,7 +102,7 @@ class Load(Command):
                     'downloads') is not None else 0
                 ver_no = meta.get('version') if meta.get(
                     'version') is not None else '0.0.0'
-                sem_ver = semantic_version.Version(ver_no, partial=True)
+                sem_ver = semantic_version.Version.coerce(ver_no, partial=True)
 
                 query = Package.query.filter_by(name=name).first()
                 if query is None:
