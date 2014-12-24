@@ -20,20 +20,19 @@ class Package(db.Model):
         return Package.query.count()
 
     @classmethod
-    def get_json(self, name):
-        package_obj = self.query.filter(self.name == name).first()
-        if package_obj is None:
-            return json.dumps([])
+    def get_package(self, name):
+        return self.query.filter(self.name == name).first()
 
+    def get_json(self):
         json_data = dict()
         # add following parameters to dict
         for label in ['name', 'author', 'link', 'description']:
-            json_data[label] = getattr(package_obj, label)
+            json_data[label] = getattr(self, label)
 
-        version_obj = package_obj.version.order_by(Version.id.desc()).first()
+        version_obj = self.version.order_by(Version.id.desc()).first()
         version_data = version_obj.get_json()
 
-        downloads_data = Downloads.get_json(package_obj.downloads)
+        downloads_data = Downloads.get_json(self.downloads)
         json_data['version'] = version_data
         json_data['downloads'] = downloads_data
 
@@ -120,7 +119,6 @@ class Downloads(db.Model):
             time -= datetime.timedelta(days=1)
 
         count = query.filter(self.date == time).first().downloads
-        print current_time, time, last_date, time, count
         return count
 
     @classmethod

@@ -23,6 +23,8 @@ def featured():
 
     json_data = []
     for item in featured_list:
-        json_data.append(Package.get_json(item['name']))
+        obj = Package.get_package(item['name'])
+        if obj is not None:
+            json_data.append(obj.get_json())
 
     return jsonify(results=json_data)
