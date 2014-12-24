@@ -14,7 +14,7 @@ class Package(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
     author = db.Column(db.String(50))
-    link = db.Column(db.String(140))
+    url = db.Column(db.String(140))
     description = db.Column(db.String())
     keywords = db.Column(db.Text())
     stars = db.Column(db.Integer, default=0)
@@ -38,7 +38,7 @@ class Package(db.Model):
     def get_json(self):
         json_data = dict()
         # add following parameters to dict
-        for label in ['name', 'author', 'link', 'description']:
+        for label in ['name', 'author', 'url', 'description']:
             json_data[label] = getattr(self, label)
 
         version_obj = self.version.order_by(Version.id.desc()).first()
@@ -71,16 +71,16 @@ class Version(db.Model):
 class License(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    link = db.Column(db.String(255))
+    url = db.Column(db.String(255))
     package = db.relationship('Package', backref='license', lazy='dynamic')
 
     def __repr__(self):
-        return 'Lic: {} at {}'.format(self.name, self.link)
+        return 'Lic: {} at {}'.format(self.name, self.url)
 
     def get_json(self):
         json_data = dict()
         json_data['name'] = self.name
-        json_data['link'] = self.link
+        json_data['url'] = self.url
 
         return json_data
 
@@ -88,15 +88,15 @@ class License(db.Model):
 class Dependency(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    link = db.Column(db.String(255))
+    url = db.Column(db.String(255))
 
     def __repr__(self):
-        return 'Dep: {} at {}'.format(self.name, self.link)
+        return 'Dep: {} at {}'.format(self.name, self.url)
 
     def get_json(self):
         json_data = dict()
         json_data['name'] = self.name
-        json_data['link'] = self.link
+        json_data['url'] = self.url
 
         return json_data
 
