@@ -3,14 +3,26 @@ import datetime
 import json
 
 
+dependencies = db.Table(
+    'dependencies',
+    db.Column('dependency_id', db.Integer, db.ForeignKey('dependency.id')),
+    db.Column('package_id', db.Integer, db.ForeignKey('package.id'))
+)
+
+
 class Package(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
     author = db.Column(db.String(50))
     link = db.Column(db.String(140))
     description = db.Column(db.String())
+    keywords = db.Column(db.Text())
+    stars = db.Column(db.Integer, default=0)
     downloads = db.relationship('Downloads', backref='package', lazy='dynamic')
     version = db.relationship('Version', backref='package', lazy='dynamic')
+    license_id = db.Column(db.Integer, db.ForeignKey('license.id'), nullable=True)
+    dependencies = db.relationship('Dependency', secondary=dependencies,
+        lazy='dynamic', backref=db.backref('packages', lazy='dynamic'))
 
     def __repr__(self):
         return 'Package: %s' % self.name
@@ -52,6 +64,39 @@ class Version(db.Model):
         json_data = dict()
         json_data['number'] = self.number
         json_data['date'] = self.date.isoformat()
+
+        return json_data
+
+
+class License(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    link = db.Column(db.String(255))
+    package = db.relationship('Package', backref='license', lazy='dynamic')
+
+    def __repr__(self):
+        return 'Lic: {} at {}'.format(self.name, self.link)
+
+    def get_json(self):
+        json_data = dict()
+        json_data['name'] = self.name
+        json_data['link'] = self.link
+
+        return json_data
+
+
+class Dependency(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    link = db.Column(db.String(255))
+
+    def __repr__(self):
+        return 'Dep: {} at {}'.format(self.name, self.link)
+
+    def get_json(self):
+        json_data = dict()
+        json_data['name'] = self.name
+        json_data['link'] = self.link
 
         return json_data
 
