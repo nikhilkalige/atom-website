@@ -12,7 +12,14 @@ class Default:
 class Developement(Default):
     DEBUG = True
 
+
+class Testing(Default):
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:qaswqasw@localhost/atom-website-test'
+
 config = {
     'DEFAULT': Default,
-    'DEVELOPMENT': Developement
+    'DEVELOPMENT': Developement,
+    'TESTING': Testing
 }
