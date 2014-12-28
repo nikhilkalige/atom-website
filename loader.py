@@ -21,6 +21,7 @@ license_map = {
     'x11': 'MIT',
     'mit/x11': 'MIT',
     'apache 2.0': 'Apache-2.0',
+    'apache2.0': 'Apache-2.0',
     'apache-2.0': 'Apache-2.0',
     'apachev2.0': 'Apache-2.0',
     'apache2': 'Apache-2.0',
