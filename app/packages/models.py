@@ -46,16 +46,21 @@ class Package(db.Model):
     def get_json(self):
         json_data = dict()
         # add following parameters to dict
-        for label in ['name', 'author', 'url', 'description']:
+        for label in ['name', 'author', 'url', 'description', 'stars']:
             json_data[label] = getattr(self, label)
 
         version_obj = self.version.order_by(Version.id.desc()).first()
         version_data = version_obj.get_json()
-
         downloads_data = Downloads.get_json(self.downloads)
+        deps_models = self.dependencies.all()
+        keys_models = self.keywords.all()
+
         json_data['version'] = version_data
         json_data['downloads'] = downloads_data
-
+        json_data['downloads_list'] = Downloads.get_list(self.downloads)
+        json_data['license'] = None if self.license is None else self.license.get_json()
+        json_data['dependencies'] = [item.get_json() for item in deps_models]
+        json_data['keywords'] = [item.get_json() for item in keys_models]
         return json_data
 
 
@@ -117,10 +122,7 @@ class Keyword(db.Model):
         return 'Key: {} '.format(self.name)
 
     def get_json(self):
-        json_data = dict()
-        json_data['name'] = self.name
-
-        return json_data
+        return self.name
 
 
 class DbFlags(db.Model):
@@ -201,3 +203,8 @@ class Downloads(db.Model):
         json_data['day'] = json_data['total'] - count
 
         return json_data
+
+    @classmethod
+    def get_list(self, query):
+        models = query.order_by(self.id.desc()).limit(50).all()
+        return [item.downloads for item in models]
