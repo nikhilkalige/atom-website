@@ -10,18 +10,26 @@ dependencies = db.Table(
 )
 
 
+keywords = db.Table(
+    'keywords',
+    db.Column('keyword_id', db.Integer, db.ForeignKey('keyword.id')),
+    db.Column('package_id', db.Integer, db.ForeignKey('package.id'))
+)
+
+
 class Package(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
     author = db.Column(db.String(50))
     url = db.Column(db.String(140))
-    description = db.Column(db.String())
-    keywords = db.Column(db.Text())
+    description = db.Column(db.Text())
     stars = db.Column(db.Integer, default=0)
     downloads = db.relationship('Downloads', backref='package', lazy='dynamic')
     version = db.relationship('Version', backref='package', lazy='dynamic')
     license_id = db.Column(db.Integer, db.ForeignKey('license.id'), nullable=True)
     dependencies = db.relationship('Dependency', secondary=dependencies,
+        lazy='dynamic', backref=db.backref('packages', lazy='dynamic'))
+    keywords = db.relationship('Keyword', secondary=keywords,
         lazy='dynamic', backref=db.backref('packages', lazy='dynamic'))
 
     def __repr__(self):
@@ -97,6 +105,20 @@ class Dependency(db.Model):
         json_data = dict()
         json_data['name'] = self.name
         json_data['url'] = self.url
+
+        return json_data
+
+
+class Keyword(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        return 'Key: {} '.format(self.name)
+
+    def get_json(self):
+        json_data = dict()
+        json_data['name'] = self.name
 
         return json_data
 
