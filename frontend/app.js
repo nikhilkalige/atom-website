@@ -7,6 +7,7 @@ window.app = {
         new IndexView({
             el: document.querySelector("body>div")
         });
+        //new IndexView();
         this.router.history.start();
 
     }

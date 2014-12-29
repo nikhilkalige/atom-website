@@ -5,9 +5,16 @@ module.exports = AmpersandModel.extend({
         id: "any",
         name: ["string", true, ""],
         author: ["string", true, ""],
-        link: ["string", true, ""],
+        url: ["string", true, ""],
         description: ["string", true, ""],
-        downloads: ["number", true, 0]
-    }
+        stars: ["number", true, 0],
+        downloads: ["array", true],
+        downloads_list: ["array", true],
+        keywords: ["array", true],
+        license: ["object", true],
+        version: ["object", true],
+        dependencies: ["object", true]
+    },
+    ///urlRoot: "api/package/"
 })
 
