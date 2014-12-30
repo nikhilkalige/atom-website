@@ -7,6 +7,6 @@ module.exports = AmpersandModel.extend({
         month: ["number", true, 0],
         week: ["number", true, 0],
     },
-    urlRoot: "http://localhost:5000/package/stats"
+    urlRoot: "api/packages/stats"
 })
 

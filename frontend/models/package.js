@@ -8,13 +8,13 @@ module.exports = AmpersandModel.extend({
         url: ["string", true, ""],
         description: ["string", true, ""],
         stars: ["number", true, 0],
-        downloads: ["array", true],
+        downloads: ["object", true],
         downloads_list: ["array", true],
         keywords: ["array", true],
         license: ["object", true],
         version: ["object", true],
         dependencies: ["object", true]
     },
-    ///urlRoot: "api/package/"
+    urlRoot: "api/packages"
 })
 
