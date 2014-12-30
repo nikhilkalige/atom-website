@@ -15,28 +15,31 @@ module.exports = AmpersandView.extend({
             prepareView: function(el) {
                 return new StatsView({
                     el: el,
-                    model: this.stats_model
+                    model: this.stats
                 });
             }
         },
     },
     initialize: function() {
         self = this;
-        this.stats_model = new StatsModel();
-        app.features = new FeatureCollection();
+        this.stats = new StatsModel();
         app.router.on("route:index", function(a, b) {
             console.log("route init");
+
+            features = new FeatureCollection();
+            self.stats.fetch();
+            features.fetch({reset: true});
+
+            features.once("reset", function() {
+                console.log("resetttasdf");
+                self.renderCollection(features, FeatureView, self.queryByHook("featured"));
+            })
             self.render();
         });
-        app.features.on("reset", function() {
-            console.log("resetttasdf");
-            self.renderCollection(app.features, FeatureView, self.queryByHook("featured"));
-        })
+
         app.router.on("route:package", function(a, b) {
             console.log(a, b);
         })
 
-        this.stats_model.fetch();
-        app.features.fetch({reset: true});
     }
 });
