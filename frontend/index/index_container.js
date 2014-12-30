@@ -20,26 +20,18 @@ module.exports = AmpersandView.extend({
             }
         },
     },
+    render: function() {
+        features = new FeatureCollection();
+        self.stats.fetch();
+        features.fetch({reset: true});
+
+        features.once("reset", function() {
+            self.renderCollection(features, FeatureView, self.queryByHook("featured"));
+        })
+        this.renderWithTemplate();
+    },
     initialize: function() {
         self = this;
         this.stats = new StatsModel();
-        app.router.on("route:index", function(a, b) {
-            console.log("route init");
-
-            features = new FeatureCollection();
-            self.stats.fetch();
-            features.fetch({reset: true});
-
-            features.once("reset", function() {
-                console.log("resetttasdf");
-                self.renderCollection(features, FeatureView, self.queryByHook("featured"));
-            })
-            self.render();
-        });
-
-        app.router.on("route:package", function(a, b) {
-            console.log(a, b);
-        })
-
     }
 });
