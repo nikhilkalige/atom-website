@@ -20,6 +20,9 @@ def featured():
     package_list = requests.get("https://atom.io/api/packages/featured")
     theme_list = requests.get("https://atom.io/api/themes/featured")
     featured_list = package_list.json() + theme_list.json()
+    # limit data to multiples of three
+    length = (len(featured_list) / 3) * 3
+    featured_list = featured_list[:length]
 
     json_data = []
     for item in featured_list:

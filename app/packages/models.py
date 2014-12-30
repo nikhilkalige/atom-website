@@ -58,7 +58,7 @@ class Package(db.Model):
         json_data['version'] = version_data
         json_data['downloads'] = downloads_data
         json_data['downloads_list'] = Downloads.get_list(self.downloads)
-        json_data['license'] = None if self.license is None else self.license.get_json()
+        json_data['license'] = {} if self.license is None else self.license.get_json()
         json_data['dependencies'] = [item.get_json() for item in deps_models]
         json_data['keywords'] = [item.get_json() for item in keys_models]
         return json_data
