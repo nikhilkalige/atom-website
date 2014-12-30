@@ -1,5 +1,6 @@
 var Router = require("./router");
 var IndexView = require("./index/index_container");
+var PackageView = require("./packages/package_view");
 
 window.app = {
     init: function() {
@@ -8,7 +9,7 @@ window.app = {
             el: document.querySelector("body>div")
         });
         //new IndexView();
-        this.router.history.start();
+        this.router.history.start({pushState: true});
 
     }
 
