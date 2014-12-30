@@ -21,8 +21,9 @@ module.exports = AmpersandView.extend({
         },
     },
     render: function() {
+        var self = this;
         features = new FeatureCollection();
-        self.stats.fetch();
+        this.stats.fetch();
         features.fetch({reset: true});
 
         features.once("reset", function() {
@@ -31,7 +32,6 @@ module.exports = AmpersandView.extend({
         this.renderWithTemplate();
     },
     initialize: function() {
-        self = this;
         this.stats = new StatsModel();
     }
 });

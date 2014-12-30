@@ -1,0 +1,12 @@
+<div>
+    <header>
+        <div class="container">
+            <a href="/" id="npm-logo"><img src="/static/images/npm-logo.svg" alt="npm logo" /></a>
+            <form id="npm-search" action="/search" method="get">
+                <input name="q" value="{{q}}" type="search" id="site-search" placeholder="find packages" tabindex="1" autocorrect="off" autocapitalize="off" />
+                <input type="submit" id="site-search-submit" />
+            </form>
+        </div>
+    </header>
+    <div data-hook="contents"></div>
+</div>
