@@ -5,6 +5,9 @@ var Template = require("./templates/index_search.hbs");
 
 module.exports = AmpersandView.extend({
     template: Template,
+    events: {
+        "submit form": "search"
+    },
     initialize: function() {
         var self = this;
         app.router.once("page", function() {
@@ -26,7 +29,17 @@ module.exports = AmpersandView.extend({
         console.log("switcher");
         if(view != null)
             this.switcher.set(view);
+    },
+    search: function(event) {
+        event.preventDefault();
+        value = this.query("#site-search").value;
+        console.log("search:"+ encodeURIComponent(value) )
+        if(value != "") {
+            // query the server for data
+            app.router.redirectTo("search/" + encodeURIComponent(value));
+        }
     }
+
 });
 
 /*
