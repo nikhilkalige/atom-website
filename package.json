@@ -24,7 +24,8 @@
     "ampersand-state": "^4.4.2",
     "ampersand-subcollection": "^1.5.0",
     "ampersand-view": "^7.0.1",
-    "ampersand-view-switcher": "^1.0.2",
+    "ampersand-view-switcher": "^1.1.2",
+    "moment": "^2.8.4",
     "underscore": "^1.7.0"
   },
   "devDependencies": {

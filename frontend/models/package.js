@@ -1,4 +1,5 @@
 var AmpersandModel = require("ampersand-model");
+var Moment = require("moment");
 
 module.exports = AmpersandModel.extend({
     props: {
@@ -14,6 +15,14 @@ module.exports = AmpersandModel.extend({
         license: ["object", true],
         version: ["object", true],
         dependencies: ["object", true]
+    },
+    derived: {
+        "last_published": {
+            deps: ["version"],
+            fn: function() {
+                return Moment(this.version.date).fromNow();
+            }
+        }
     },
     urlRoot: "api/packages"
 })
