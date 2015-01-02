@@ -4,15 +4,18 @@ packages = Blueprint('packages', __name__)
 
 
 from . import views, models
+from utils import get_readme
 
 
 def post_get_single(result=None, **kw):
-    result.update(result.pop('get_json'))
+    result.update(result.pop("get_json"))
+    result["readme"] = get_readme(result['name'], result['author'])
 
 
 # runs for search request
 def post_get_many(result=None, search_params=None, **kw):
-    pass
+    for item in result["objects"]:
+        item.update(item.pop("get_json"))
 
 
 def api_creator(apimanager):
