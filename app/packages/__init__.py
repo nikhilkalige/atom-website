@@ -4,12 +4,13 @@ packages = Blueprint('packages', __name__)
 
 
 from . import views, models
-from utils import get_readme
+from utils import github_data
 
 
 def post_get_single(result=None, **kw):
     result.update(result.pop("get_json"))
-    result["readme"] = get_readme(result['name'], result['author'])
+    #result["readme"] = get_readme(result['name'], result['author'])
+    result.update(github_data(result['name'], result['author']))
 
 
 # runs for search request
