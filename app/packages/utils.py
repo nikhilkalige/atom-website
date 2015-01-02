@@ -43,11 +43,16 @@ def get_count(name, author, string, headers):
     return (int(page) - 1) * 5 + len(data.json())
 
 
-def github_data(name, author):
+def github_data(name, author, url):
     headers = {
         "Authorization": "token " + app.config.get("API_KEY"),
         "Accept": "application/vnd.github.VERSION.html"
     }
+
+    if url != "":
+        match = re.match(r'.*\/(?P<name>.*)\/', url)
+        if match is not None:
+            author = match.groupdict()['name']
 
     json_obj = dict()
     json_obj['readme'] = get_readme(name, author, headers)

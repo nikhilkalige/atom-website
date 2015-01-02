@@ -10,7 +10,7 @@ from utils import github_data
 def post_get_single(result=None, **kw):
     result.update(result.pop("get_json"))
     #result["readme"] = get_readme(result['name'], result['author'])
-    result.update(github_data(result['name'], result['author']))
+    result.update(github_data(result['name'], result['author'], result['url']))
 
 
 # runs for search request
