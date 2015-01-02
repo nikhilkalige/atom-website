@@ -2,15 +2,15 @@
     <div class="package-widget">
         <div class="package-details">
             <h3>
-                <a class="name" href="/packages/{{name}}">{{name}}</a>
+                <a class="name" data-hook="link"></a>
             </h3>
-            <p class="description">{{description}}</p>
+            <p class="description"></p>
             <p class="author quiet">
-                <a class="version" href="/packages/{{name}}">{{version}}</a>
-                published {{lastPublished}} by
-                <a href="/~{{publishedBy.name}}">{{publishedBy.name}}</a>
+                <a class="version" data-hook="version" href=""></a>
+                published {{model.last_published}} by
+                <a data-hook="author"></a>
             </p>
-            <p class="quiet">{{pluralize dlWeek "download" true}} in the last week</p>
+            <p class="quiet">{{model.downloads.week}} downloads in the last week</p>
         </div>
     </div>
 </li>

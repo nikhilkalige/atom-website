@@ -19,7 +19,8 @@ module.exports = Router.extend({
         this.redirectTo("package/" + name);
     },
     packages: function(name) {
-        this.trigger("page", new PackageView({}));
+        //this.trigger("page", new PackageView({name: name}));
+        new PackageView({name: name});
     },
     search: function(param) {
         this.trigger("page", new SearchView({param: param}));
