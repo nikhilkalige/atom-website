@@ -1,9 +1,25 @@
 var AmpersandView = require("ampersand-view");
 var PackageModel = require("../models/package");
 var Template = require("./templates/package.hbs");
+var Graphs = require("./graph_view.js");
+
 
 module.exports = AmpersandView.extend({
     template: Template,
+    subviews: {
+        g: {
+            container: "#metric",
+            prepareView: function(el) {
+                return new Graphs({
+                    el: el,
+                    data: this.model.downloads_list
+                });
+            }
+        }
+    },
+    render: function() {
+        this.renderWithTemplate();
+    },
     bindings: {
         "model.name": {
             type: "text",
