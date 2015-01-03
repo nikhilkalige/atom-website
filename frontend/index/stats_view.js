@@ -9,5 +9,8 @@ module.exports = AmpersandView.extend({
         "model.day": "[data-hook~=day]",
         "model.month": "[data-hook~=month]",
         "model.week": "[data-hook~=week]",
+    },
+    render: function() {
+        this.renderWithTemplate();
     }
 })
