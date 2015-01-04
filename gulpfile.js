@@ -5,15 +5,29 @@ var buffer = require("vinyl-buffer");
 var _ = require("underscore");
 var gulp = require("gulp");
 var gutil = require('gulp-util');
+var nib = require('nib');
+var stylus = require('gulp-stylus');
 var plugins = require('gulp-load-plugins')();
 
 var paths = {
-    "scripts_dst": "public/js"
+    //"scripts_dst": "public/js"
+    "scripts_dst": "app/static/js",
+    "css_dst": "app/static/css",
+    "css_src": "frontend/static/css/index.styl"
 }
 
 var onError = function(error) {
     gutil.log(gutil.colors.red(error));
 };
+
+/**
+ * Build all css files
+ */
+gulp.task('styles', function () {
+    gulp.src(paths.css_src)
+    .pipe(stylus({use: [nib()]}))
+    .pipe(gulp.dest(paths.css_dst));
+});
 
 /**
  * uses browserify and minifies code in production build
@@ -29,11 +43,10 @@ var scripts = function(options) {
 
     var bundler = browserify(settings.source, {
         debug: true,
-        extensions: [".js", ".hbs", '.jade']
+        extensions: [".js", ".hbs"]
     });
 
     bundler.transform("hbsfy");
-    bundler.transform("jadeify");
 
     if(settings.watching)
         bundler = watchify(bundler);
