@@ -1,0 +1,80 @@
+@keyframes cursor-blink
+  1%
+    opacity 0
+  40%
+    opacity 0
+  60%
+     opacity 1
+  100%
+    opacity 1
+
+#what-npm-is-for
+  line-height 1.2
+  display inline-block
+  margin-bottom 20px
+  color npmred
+  width 200px
+  text-align left
+  @media only screen and (max-width: mobileMaxWidth)
+    margin-bottom 0
+    display block
+    text-align center
+    width auto
+  &:after
+    -webkit-animation cursor-blink 0.8s linear infinite
+    -moz-animation cursor-blink 0.8s linear infinite
+    -o-animation cursor-blink 0.8s linear infinite
+    animation cursor-blink 0.8s linear infinite
+    content "|"
+    color npmred
+    padding-left 3px
+  &.disabled:after
+    content none
+
+#home-stats
+  position relative
+  margin 10px auto 10px auto
+  padding 0
+  max-width 900px
+  display flex
+  flex-wrap wrap
+  justify-content space-between
+
+  @media only screen and (max-width: 820px)
+    display block
+    .stat
+      display block
+      width 200px
+      margin 15px auto
+
+  @media only screen and (max-width: mobileMaxWidth)
+    display none
+
+.stat
+  position relative
+  flex 0 1 auto
+  line-height 20px
+  font-size 14px
+  color text-color-subdued
+  margin 20px 20px 20px 0
+  padding-left 46px
+  &.icon-package-hex
+    &:before
+      top 0
+      font-size 36px
+
+  &:before
+    position absolute
+    top 2px
+    left 0
+    font-size 30px
+    margin-right 10px
+    margin-top 2px
+    color greigh2
+
+  strong
+    code-font()
+    font-weight 600
+    font-size 16px
+    display block
+    color greigh2

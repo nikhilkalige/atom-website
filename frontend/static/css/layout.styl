@@ -1,0 +1,307 @@
+section
+  display block
+  margin 50px 0
+
+.container
+  position relative
+  float none
+  clear both
+  overflow visible
+  max-width fullColumnWidth
+  margin 0 auto
+  padding 0 20px
+
+  &.static-content
+    margin-top 20px
+    margin-bottom 20px
+    h1
+      margin 20px 0
+
+  &:after
+    content: ""
+    display table
+    clear both
+
+.narrow
+  max-width narrowColumnWidth
+
+.tablet-width
+  max-width tablet-width
+
+.content
+  float left
+  max-width fullColumnWidth - sidebarMaxWidth - 100px
+  margin-bottom 90px
+
+  @media only screen and (max-width: fullColumnWidth)
+    float none
+    max-width 100%
+    margin-bottom 40px
+
+.sidebar
+  float right
+  margin-top 40px
+  max-width sidebarMaxWidth
+  @media only screen and (max-width: fullColumnWidth)
+    max-width 100%
+    float none
+    clear both
+    overflow hidden
+
+ul.columnar
+  @extend .vanilla-list
+  columns 3
+  column-gap 40px
+
+  li
+    column-break-inside avoid
+    padding 5px
+    margin-bottom 20px
+
+  @media only screen and (max-width: mobileMaxWidth)
+    columns 1
+
+.package-widget
+
+  &:hover
+    a
+      color npmred !important
+
+  h3, h3 a
+    font-size packageWidgetHeadingHeight
+    line-height packageWidgetHeadingHeight
+    overflow visible
+    vertical-align top
+    margin 0
+    padding 0
+    max-width 100%
+    @extend .ellipsis
+
+  a.name
+    @extend .red-on-hover
+    @extend .iconic
+    text-decoration none
+    color greigh2
+    &:before
+      @extend .iconic-before
+      content "\e617"
+      color greigh5
+      line-height packageWidgetHeadingHeight
+      padding-right 6px
+
+  p
+    font-size 15px
+    margin 0
+    max-width 100%
+    color greigh3
+    padding-left 23px
+    @extend .ellipsis
+
+  .quiet
+    font-size 14px
+    color greigh3
+    a
+      color greigh2
+      @extend .red-on-hover
+      font-weight 400
+
+
+.package-widget-with-logo
+
+  .package-logo
+    display block
+    text-align center
+    height packageWidgetLogoHeight
+    line-height packageWidgetLogoHeight
+    img
+      display inline-block
+      max-width 80%
+      max-height 100%
+      vertical-align middle
+
+  .package-details
+    margin-top 20px
+    h3,p
+      text-align center
+
+  a.name
+    &:before
+      content none
+
+  p
+    padding-left 0
+
+.box
+  margin 0 0 30px
+  font-size 16px
+  color greigh3
+
+  &:hover
+    a
+      color npmred !important
+
+  p
+    padding 14px
+    margin 0
+
+  a
+    text-decoration none
+    &:hover
+      text-decoration underline
+
+  li
+    line-height 2.5
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    padding-right 10px
+    border-bottom 1px solid greigh5
+    &:last-child
+      border-bottom none
+    &.address
+      line-height 1.5
+      padding-top 0.5em
+
+.pagination
+  margin 50px 0
+  width 100%
+  text-align center
+
+  a
+    display inline-block
+    border-radius 2px
+    border 1px solid greigh6
+    text-align center
+    margin 0 2px 10px
+    padding 1px 11px
+    color npmred
+    text-decoration none
+    text-transform lowercase
+
+    &:hover, &.active
+      border-color darken(npmred, 20%)
+      color background-color
+      background npmred
+
+// Lists
+
+ol
+  list-style-position inside
+
+ul.humans
+  list-style none
+  margin 0 0 30px 0
+  padding 0
+  float none
+  overflow hidden
+
+  li
+    float left
+    display block
+    margin 0
+    padding 3px 0
+    position relative
+
+  a
+    display block
+    position relative
+    width maintainerAvatarSize
+    height maintainerAvatarSize
+    margin-right 10px
+    margin-bottom 10px
+
+  img, span
+    display block
+    position absolute
+    width maintainerAvatarSize
+
+  img
+    border-radius 3px
+    transition all 0.3s
+
+  span
+    line-height maintainerAvatarSize
+    text-align center
+    opacity 0
+    transition all 0.3s
+    text-overflow ellipsis
+    overflow hidden
+    padding 0 6px
+    text-decoration none
+
+  a:hover
+    img
+      opacity 0
+    span
+      text-decoration underline
+
+  &:hover
+    span
+      opacity 1
+    img
+      opacity 0.1
+
+.ad
+  padding 10px
+  border 1px solid greigh7
+  background greigh8
+  a
+    font-weight 400
+    text-decoration underline
+    &.quiet
+      color greigh4
+      text-decoration none
+      @extend .red-on-hover
+  p
+    margin 0
+    padding 0
+
+  &.discreet
+    padding 0
+    border none
+    background none
+
+.hiring-widget
+  padding 20px 0
+
+.hiring-widget-logo
+  display block
+  text-align center
+  height 80px
+  margin-bottom 10px
+  img
+    display inline-block
+    max-width 100%
+    max-height 100%
+
+div.scroll-beyond-300
+  max-height 300px
+  overflow-y scroll
+  border 1px solid greigh6
+  margin 15px 0
+
+.inquire
+  margin-bottom 0.5em
+
+  input[type='radio']
+    width 0.1px
+
+    &:checked + label
+      background-color npmred
+      color white
+      border 1px solid npmred
+
+    &:hover + label
+      background-color greigh2
+      color white
+      border 1px solid greigh2
+
+  input[type='radio'] + label
+    margin 0 1px 0 -8px
+    background-color background-color
+    border 1px solid greigh3
+    color greigh3
+
+img.roomy-and-flexible
+  max-width 100%
+  margin 40px 0

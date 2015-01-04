@@ -1,0 +1,52 @@
+footer
+  margin 80px 0 80px 0
+
+  h3, ul.links
+    margin-left 20px
+    @media only screen and (max-width: mobileMaxWidth)
+      margin-left 0
+
+  h3
+    text-transform lowercase
+    line-height 2
+    border-bottom 1px solid greigh6
+
+  ul.links
+    @extend .vanilla-list
+    li
+      line-height 2
+      margin 0
+      padding 0
+      display block
+      text-transform lowercase
+      a
+        text-decoration none
+        &:hover
+          text-decoration underline
+
+#npm-loves-you
+  margin-top 80px
+  display inline-block
+  color greigh4
+  text-decoration none
+  position relative
+  &:before, &:after
+    content "\2665"
+    color rgba(npmred, 0)
+    font-size 14px
+    transition all 0.3s
+    transform translate3d(0,0,0)
+    position absolute
+    top 1px
+  &:before
+    left -10px
+  &:after
+    right -10px
+  &:hover
+    color rgba(npmred, 1)
+    &:before, &:after
+      color rgba(npmred, 1)
+    &:before
+      left -15px
+    &:after
+      right -15px
