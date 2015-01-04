@@ -29,7 +29,7 @@ module.exports = AmpersandView.extend({
             type: "text",
             hook: "desc"
         },
-        "model.version.name": {
+        "model.version.number": {
             type: "text",
             hook: "ver"
         },
