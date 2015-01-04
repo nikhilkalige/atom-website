@@ -1,12 +1,12 @@
 <div>
-    <div id="metric"></div>
     <div class="content">
         <div id="readme">
             <hgroup>
                 <h1 data-hook="name"></h1>
                 <h2 data-hook="desc"></h2>
             </hgroup>
-        {{{model.readme}}}
+             <div id="metric"></div>
+            {{{model.readme}}}
         </div>
     </div>
     <div class="sidebar">
@@ -30,12 +30,12 @@
         <h3>Stats</h3>
         <ul class="box">
             <li><strong data-hook="day" class="pretty-number"></strong> downloads in the last day</li>
-            <li><strong data-hook="month" class="pretty-number"></strong> downloads in the last week</li>
-            <li><strong data-hook="week" class="pretty-number"></strong> downloads in the last month</li>
+            <li><strong data-hook="week" class="pretty-number"></strong> downloads in the last week</li>
+            <li><strong data-hook="month" class="pretty-number"></strong> downloads in the last month</li>
 
             <li id="issues">
-                <span class="original">Have an issue? <a href="{{model.issues.url}}">File it.</a></span>
-                <span class="enhanced" style="display:none">
+                <span class="original" style="display:none">Have an issue? <a href="{{model.issues.url}}">File it.</a></span>
+                <span class="enhanced">
                     <a href="{{model.issues.url}}">{{model.issues.count}} open issues</a> on GitHub
                 </span>
             </li>
