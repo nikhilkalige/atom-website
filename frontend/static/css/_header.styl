@@ -1,0 +1,399 @@
+header
+  padding 28px 0 20px
+  border-bottom 1px solid lightgrey
+  background greigh6
+
+  h1
+    clear left
+    padding 20px 0 0 0
+    line-height 1.4
+    font-weight 400
+    width 100%
+    @extend .ellipsis
+
+    em
+      color npmred
+      font-style normal
+
+    @media only screen and (max-width: mobileMaxWidth)
+      font-weight 400
+      font-size 28px
+      line-height 46px
+      letter-spacing -1px
+
+      &:before
+        float left
+        margin-right 4px
+        margin-top 6px
+
+nav
+  height 38px
+  color background-color
+  font-size 14px
+  font-weight 600
+  line-height 39px
+  text-align right
+  border-bottom 1px solid darken(npmred, 10%)
+  background npmred
+  overflow hidden
+
+  @media only screen and (max-width: mobileMaxWidth)
+    display none
+    position absolute
+    top 86px
+    left 0
+    right 0
+    border-bottom 0
+    background greigh6
+    z-index 12
+
+  h2
+    margin 0
+    padding 0
+    a
+      margin 0
+      padding 0
+      text-decoration none
+      border none
+      color rgba(background-color, 0.8)
+      padding-right 100px
+      background none
+      &:hover
+        color rgba(background-color, 1)
+        background none
+        text-decoration none
+        border none
+
+  a
+    display inline-block
+    line-height 36px
+    padding 0 10px
+    margin 0
+    color rgba(background-color, 0.8)
+    text-decoration none
+    background npmred
+    transition all 0.1s
+
+    &:first-child
+      float left
+      padding 0
+      text-transform lowercase
+      display inline-block
+      min-width 240px
+      text-align left
+
+      @media only screen and (max-width: mobileMaxWidth)
+        display none
+
+      &:hover
+        background none
+        border none
+
+    &:hover, &.active
+      color rgba(background-color, 1)
+      text-decoration none
+      background darken(npmred, 20%)
+
+    @media only screen and (max-width: mobileMaxWidth)
+      display block
+      text-align center
+      margin 0
+      background npmred
+      opacity 1
+      border-bottom 1px solid white
+
+      &:hover
+        color npmred
+        background greigh6
+        border-bottom 1px solid white
+
+  .container
+    @media only screen and (max-width: mobileMaxWidth)
+      padding 0
+
+#secondary-nav
+  text-align center
+  min-height 65px
+  margin 0 0 25px
+  background url(../images/secondary-nav-bg.png) repeat-x bottom left
+
+  @media only screen and (max-width: mobileMaxWidth)
+    min-height 45px
+
+  a
+    display inline-block
+    height 63px
+    margin 0 30px 0 0
+    font-weight 600
+    font-size 16px
+    line-height 65px
+    color text-color-subdued
+    text-decoration none
+
+    @media only screen and (max-width: mobileMaxWidth)
+      font-weight 600
+      font-size 16px
+      line-height 45px
+      height 43px
+      margin 0 15px 0 0
+
+    &:hover, &.active
+      color greigh2
+      border-bottom 2px solid npmred
+
+    &:last-child
+      margin-right 0
+
+#profile-nav
+  min-height 67px
+  margin 0 0 95px
+  background url(../images/secondary-nav-bg.png) repeat-x bottom left
+
+  @media only screen and (max-width: mobileMaxWidth)
+    position relative
+    margin 0 0 50px
+    background none
+
+  .container
+    padding-left 170px
+    max-width 1010px
+
+    @media only screen and (max-width: mobileMaxWidth)
+      padding-left 0
+      position absolute
+      top -80px
+      left 105px
+
+  a
+    display inline-block
+    height 67px
+    margin 0 30px 0 0
+    font-weight 600
+    font-size 16px
+    line-height 67px
+    color text-color-subdued
+
+    &:before
+      margin-right 8px
+      float left
+      line-height 69px
+
+      @media only screen and (max-width: mobileMaxWidth)
+        line-height 15px
+
+    @media only screen and (max-width: mobileMaxWidth)
+      display inline-block
+      height auto
+      margin 0 10px 0 0
+      font-size 13px
+      line-height 15px
+      color rgba(255,255,255,.4)
+
+    &:hover
+      color greigh2
+
+#npm-logo
+  float left
+  margin-right 7%
+
+  img
+    display block
+    width 125px
+    height 49px
+
+  @media only screen and (max-width: mobileMaxWidth)
+    margin 0
+    img
+      width 80px
+
+#npm-search
+  float left
+  position relative
+  width 53%
+  height 47px
+  padding 0
+  margin 0
+  border 1px solid greigh5
+  border-radius 2px
+  background background-color
+
+  @media only screen and (max-width: mobileMaxWidth)
+    margin-top 20px
+    width 100%
+
+#site-search
+  position absolute
+  top 7px
+  left 7px
+  width 80%
+  height 30px
+  padding 0
+  margin 0
+  border 0
+  outline 0
+  font-weight 300
+  font-size 18px
+  background none
+
+#site-search-submit
+  position absolute
+  top 0
+  right 0
+  height 45px
+  width 46px
+  border 0
+  text-indent -9999em
+  cursor pointer
+  outline 0
+  border-left 1px solid greigh5
+  border-radius 0 2px 2px 0
+  background url(../images/ico-search.svg) no-repeat 50% 50%
+  background-size 16px 16px
+
+
+  &:hover
+    width 49px
+    height 46px
+    top -1px
+    right -1px
+    border 1px solid darken(npmred, 15%)
+    border-bottom none
+    background: npmred url(../images/ico-search-hover.svg) no-repeat 50% 50%
+    background-size 16px 16px
+
+
+#user-info
+  position absolute
+  top 0
+  right 20px
+  float none
+  clear both
+  width 50%
+
+  img
+    float right
+    display block
+    width userInfoAvatarSize
+    margin 0 0 0 10px
+    border-radius 2px
+
+  ul
+    @extend .vanilla-list
+    float right
+    display block
+    text-align right
+    margin-top 8px
+    li
+      line-height 1
+    &.single
+      margin-top 0
+      li
+        line-height userInfoAvatarSize
+        vertical-align top
+
+  @media only screen and (max-width: mobileMaxWidth)
+    width auto
+    margin-top 0
+    margin-right 0
+    ul
+      li
+        display block
+        float left
+        padding-left 10px
+        &.logout
+          display none
+      &.single li
+        line-height userInfoAvatarSizeMobile
+    img
+      width userInfoAvatarSizeMobile
+
+    &.anonymous
+      img
+        display none
+
+  a
+    &.subdued
+      color greigh4
+      font-size 14px
+
+
+// Search Auto Suggest
+
+#auto-suggest
+  position absolute
+  top 47px
+  left -1px
+  width 89%
+  border 1px solid greigh5
+  border-width 0 1px 1px
+  border-radius 0 0 2px 2px
+  font-weight 600
+  font-size 13px
+  line-height 18px
+  color text-color-subdued
+  background white
+  z-index 200
+
+  // A little obessive, maybe
+  @media only screen and (max-width: 1024px)
+    width 86.8%
+
+  @media only screen and (max-width: 768px)
+    width 79.5%
+
+  @media only screen and (max-width: mobileMaxWidth)
+    width 74.7%
+
+  @media only screen and (orientation: landscape)
+    width 86.6%
+
+  #auto-suggest-nav
+    padding 8px 0 0 20px
+    border-bottom 1px solid greigh5
+
+    a
+      display inline-block
+      text-transform uppercase
+      font-weight 600
+      font-size 12px
+      line-height 12px
+      color text-color-subdued
+      margin 0 10px 0 0
+      padding 0 0 12px
+
+      &:hover, &.active
+        color text-color
+        padding 0 0 10px
+        border-bottom 2px solid greigh
+
+  dl
+
+    dt
+      padding 10px 20px 0
+
+      a
+        color npmred
+        font-size 18px
+
+      p
+        margin 0
+
+    dd
+      color text-color
+      padding 8px 20px
+      border-bottom 1px solid greigh5
+
+      span
+        float right
+        margin 0 0 0 20px
+
+        &:before
+          margin-right 6px
+
+      em
+        font-style normal
+        font-weight 400
+
+#auto-suggest-bottom
+  padding 10px 20px
+  background greigh6

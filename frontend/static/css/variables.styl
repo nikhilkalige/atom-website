@@ -1,0 +1,96 @@
+// Colors
+
+greigh0 = rgba(black, 1)
+greigh1 = rgba(black, 0.9)
+greigh2 = rgba(black, 0.8)
+greigh3 = rgba(black, 0.6)
+greigh4 = rgba(black, 0.4)
+greigh5 = rgba(black, 0.2)
+greigh6 = rgba(black, 0.08)
+greigh7 = rgba(black, 0.04)
+greigh8 = rgba(black, 0.02)
+
+npmred = #cb3837
+background-color = white
+text-color = greigh2
+text-color-subdued = greigh4
+error-background-color = white
+error-text-color = npmred
+
+// Dimensions
+
+packageWidgetHeadingHeight = 20px
+packageWidgetLogoHeight = 120px
+maintainerAvatarSize = 90px
+userAvatarSize = 50px
+starHeight = 18px
+userInfoAvatarSize = 45px
+userInfoAvatarSizeMobile = 25px
+fullColumnWidth = 1180px
+narrowColumnWidth = 420px
+tablet-width = 640px
+mobileMaxWidth = 767px
+sidebarMaxWidth = 320px
+
+// @extend Classes
+
+.no-float
+  float none
+  clear both
+  overflow hidden
+
+.vanilla-list
+  list-style none
+  margin 0
+  padding 0
+  li
+    list-style none
+
+.ellipsis
+  white-space nowrap
+  overflow-x hidden
+  text-overflow ellipsis
+
+.unstyled-text-input
+  border none
+  outline none
+  background none
+  margin 0
+  padding 0
+
+.red-on-hover
+  &:hover
+    color npmred
+
+// Mixins
+
+normal-font()
+  font-family 'Source Sans Pro', 'Lucida Grande', sans-serif
+
+code-font()
+  font-family Consolas, "Liberation Mono", Menlo, Monaco, Courier, monospace
+
+columns(n)
+  -webkit-columns n
+  -moz-columns n
+  columns n
+
+column-gap(n)
+  -webkit-column-gap n
+  -moz-column-gap n
+  column-gap n
+
+column-break-inside(n)
+  column-break-inside n
+  -webkit-column-break-inside n
+  -moz-column-break-inside n
+  // Firefox workaround
+  // http://stackoverflow.com/a/7785711
+  page-break-inside n
+
+// This doesn't work :(   why?
+// animation(n)
+//   -webkit-animation n
+//   -moz-animation n
+//   -o-animation n
+//   animation n

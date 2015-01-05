@@ -1,0 +1,209 @@
+.red
+  color npmred
+
+.subdued
+  opacity 0.6
+
+.full-width
+  width 100%
+
+.preserve-case
+  text-transform none !important
+
+.center, .centered
+  text-align center
+
+body
+  normal-font()
+  font-weight 400
+  font-size 16px
+  line-height 25px
+  letter-spacing -0.03em
+
+a
+  color npmred
+  font-weight 600
+  text-decoration none
+  &:hover
+    text-decoration underline
+  &.unadorned
+    color text-color
+    font-weight 400
+
+  .sidebar &
+    color greigh2
+    @extend .red-on-hover
+    font-weight 600
+
+h1
+  font-weight 400
+  font-size 44px
+  line-height 1.2
+  letter-spacing -2px
+  margin 30px 0 0 0
+  color greigh1
+  text-transform lowercase
+  &.centered
+    text-align center
+    padding 40px 0 20px 0
+
+  .narrow &
+    margin 0.2em 0
+
+h2
+  margin 20px 0 20px 0
+  font-weight 600
+  font-size 24px
+  color text-color
+  text-transform lowercase
+
+  span
+    font-weight 400
+
+  &[class^="icon-"], &[class*=" icon-"]
+    line-height 45px
+    margin 0 0 35px
+
+  &:before
+    font-size 45px
+    float left
+    margin-right 10px
+
+  &.ruled
+    border-bottom 2px solid greigh6
+    padding-bottom 22px
+
+
+hgroup
+  margin 30px 0
+  text-align center
+  text-transform lowercase
+
+  & h2
+    font-weight 300
+    margin 10px 0
+
+h3
+  display block
+  margin 30px 0 10px 0
+  font-size 20px
+  font-weight 600
+  line-height 1
+  color greigh2
+
+  .sidebar &
+    color npmred
+    a
+      color npmred
+
+
+h1, h2, h3
+  &.undecorated
+    a
+      color text-color
+
+hgroup
+  text-align center
+  text-transform lowercase
+
+  & h2
+    font-weight 300
+
+  & p
+    margin-top 1em
+
+p
+  margin 0 0 25px
+
+  &.list-of-links a
+    font-weight 400
+
+strong
+  &.code
+    code-font()
+
+.hljs
+  margin-bottom 15px
+
+.btn
+  display inline-block
+  height 47px
+  padding 0 50px
+  color background-color
+  font-weight 600
+  line-height 47px
+  text-align center
+  border-radius 4px
+  background npmred
+
+  &:hover
+    background greigh2
+
+  &.greigh
+    margin-right 10px
+    background c
+
+    &:hover
+      background greigh2
+
+ul
+  margin 25px 0 25px 35px
+
+  li
+    list-style disc
+
+blockquote
+  padding 0 15px
+  color #555
+  border-left 4px solid #CCC
+
+a .icon-add:before
+  float left
+  color background-color
+  border-radius 2px
+  display inline-block
+  width 16px
+  height 16px
+  line-height 17px
+  font-size 9px
+  text-align center
+  margin 0 6px 0 0
+  background npmred
+
+.email-label:hover, .email-field:hover
+  text-decoration none
+  color greigh2
+
+.email-field input
+  background-color greigh6
+
+npmInstallHeight = 18px
+npmInstallFontSize = 15px
+
+.npm-install
+  position relative
+  &:before
+    position absolute
+    top 0
+    left 0
+    font-size npmInstallHeight
+    line-height npmInstallHeight
+    color greigh5
+    vertical-align top
+
+.autoselect-wrapper > input[type=text]
+    @extend .unstyled-text-input
+    code-font()
+    margin 0
+    padding 0 0 0 30px
+    line-height npmInstallHeight
+    vertical-align top
+    display inline-block
+    width 100%
+    white-space nowrap
+    overflow visible
+    overflow-x auto
+    color greigh3
+    height npmInstallHeight+2px
+    cursor text
+    font-size npmInstallFontSize

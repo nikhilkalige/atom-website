@@ -1,0 +1,75 @@
+<div>
+    <div class="content">
+        <div id="readme">
+            <hgroup>
+                <h1 data-hook="name"></h1>
+                <h2 data-hook="desc"></h2>
+            </hgroup>
+             <div id="metric"></div>
+            {{{model.readme}}}
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="autoselect-wrapper npm-install icon-download">
+            <input type="text" value="apm install {{model.name}}" readonly>
+        </div>
+        <h3>Package Info</h3>
+        <ul class="box">
+            <li>
+                <strong data-hook="ver"></strong>
+                published {{model.last_published}}
+                by <a data-hook="author"></a>
+            </li>
+            <li>
+                <a data-hook="url"></a>
+            </li>
+            <li>
+                <a data-hook="license"href="{{license.url}}">{{license.name}}</a> <span> license</span>
+            </li>
+        </ul>
+        <h3>Stats</h3>
+        <ul class="box">
+            <li><strong data-hook="day" class="pretty-number"></strong> downloads in the last day</li>
+            <li><strong data-hook="week" class="pretty-number"></strong> downloads in the last week</li>
+            <li><strong data-hook="month" class="pretty-number"></strong> downloads in the last month</li>
+
+            <li id="issues">
+                <span class="original" style="display:none">Have an issue? <a href="{{model.issues.url}}">File it.</a></span>
+                <span class="enhanced">
+                    <a href="{{model.issues.url}}">{{model.issues.count}} open issues</a> on GitHub
+                </span>
+            </li>
+            <li id="pull_requests">
+                <a href="{{model.pull.url}}">{{model.pull.count}} open pull requests</a> on GitHub
+            </li>
+        </ul>
+        <h3>Keywords</h3>
+        <p class="list-of-links">
+            {{#if model.keywords}}
+            {{#each model.keywords}}
+                <a>{{this}}</a>{{#unless @last}}, {{/unless}}
+            {{/each}}
+            {{else}}
+                None
+            {{/if}}
+        </p>
+        <h3>Dependencies {{#if model.dependencies}}({{model.dependencies.length}}){{/if}}</h3>
+        <p class="list-of-links">
+            {{#if model.dependencies}}
+                {{#each model.dependencies}}
+                {{#unless @last}}
+                <a href="{{this.url}}">{{this.name}}</a>,
+            {{else}}
+                {{#unless noHref}}
+                <a href="{{this.url}}">{{this.name}}</a>
+                {{else}}
+                <a>{{text}}</a>
+                {{/unless}}
+                {{/unless}}
+                {{/each}}
+                {{else}}
+                None
+            {{/if}}
+        </p>
+    </div>
+</div>

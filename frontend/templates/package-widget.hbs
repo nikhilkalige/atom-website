@@ -1,0 +1,16 @@
+<li>
+    <div class="package-widget">
+        <div class="package-details">
+            <h3>
+                <a class="name" href="/packages/{{name}}">{{name}}</a>
+            </h3>
+            <p class="description">{{description}}</p>
+            <p class="author quiet">
+                <a class="version" href="/packages/{{name}}">{{version}}</a>
+                published {{lastPublished}} by
+                <a href="/~{{publishedBy.name}}">{{publishedBy.name}}</a>
+            </p>
+            <p class="quiet">{{pluralize dlWeek "download" true}} in the last week</p>
+        </div>
+    </div>
+</li>
