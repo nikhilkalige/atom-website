@@ -2,6 +2,8 @@ from flask import Flask
 from config import config
 from flask.ext.sqlalchemy import SQLAlchemy
 import flask.ext.restless as flask_restless
+from extensions import cache
+
 
 db = SQLAlchemy()
 
@@ -10,6 +12,7 @@ def create_app(environment):
     app = Flask(__name__)
     app.config.from_object(config[environment])
     db.init_app(app)
+    cache.init_app(app)
 
     from packages import packages
     app.register_blueprint(packages, url_prefix='/api/packages')
@@ -33,6 +36,5 @@ def register_views(app):
     app.add_url_rule("/", defaults={"path": ""}, methods=["get"], view_func=base_html_renderer)
     app.add_url_rule("/<path:path>", methods=["get"], view_func=base_html_renderer)
 
-#app.config.from_object(config)
-#db = SQLAlchemy(app)
+
 from app import views

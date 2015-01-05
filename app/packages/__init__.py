@@ -9,7 +9,6 @@ from utils import github_data
 
 def post_get_single(result=None, **kw):
     result.update(result.pop("get_json"))
-    #result["readme"] = get_readme(result['name'], result['author'])
     result.update(github_data(result['name'], result['author'], result['url']))
 
 
@@ -27,13 +26,3 @@ def api_creator(apimanager):
         'GET_SINGLE': [post_get_single],
         'GET_MANY': [post_get_many]
     })
-
-#app = Flask(__name__)
-
-
-#from flask.ext.sqlalchemy import SQLAlchemy
-#db = SQLAlchemy(app)
-#app.config.from_object('config')
-#db = SQLAlchemy(app)
-
-#from app import views, models

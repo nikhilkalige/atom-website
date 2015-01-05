@@ -11,6 +11,7 @@ parser.read("secret_config.cfg")
 class Default:
     PORT = 8080
     API_KEY = parser.get("github", "api_key")
+    CACHE_TYPE = 'memcached'
     SQLALCHEMY_DATABASE_URI = 'mysql://root:' + \
         parser.get("develop", "db_password").strip('"') + \
         '@localhost/atom-website-develop'
