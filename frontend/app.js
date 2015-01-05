@@ -1,16 +1,14 @@
 var Router = require("./router");
-var IndexView = require("./index/index_container");
+//var Switcher = require("./switcher");
+var MainView = require("./main/main_view");
 
 window.app = {
     init: function() {
         this.router = new Router();
-        new IndexView({
-            el: document.querySelector("body>div")
-        });
-        this.router.history.start();
-
+        //Switcher(this.queryByHook("container"));
+        new MainView({});
+        this.router.history.start({pushState: true});
     }
-
 };
 
 window.app.init();

@@ -2,6 +2,8 @@ from flask import Flask
 from config import config
 from flask.ext.sqlalchemy import SQLAlchemy
 import flask.ext.restless as flask_restless
+from extensions import cache
+
 
 db = SQLAlchemy()
 
@@ -10,10 +12,14 @@ def create_app(environment):
     app = Flask(__name__)
     app.config.from_object(config[environment])
     db.init_app(app)
+    cache.init_app(app)
 
-    create_restless_api(app)
     from packages import packages
-    app.register_blueprint(packages, url_prefix='/package')
+    app.register_blueprint(packages, url_prefix='/api/packages')
+    create_restless_api(app)
+
+    # Register views
+    register_views(app)
     return app
 
 
@@ -23,6 +29,12 @@ def create_restless_api(app):
     from app.packages import api_creator
     api_creator(manager)
 
-#app.config.from_object(config)
-#db = SQLAlchemy(app)
-#from app import views, models
+
+def register_views(app):
+    # Serve base html
+    from app.views import base_html_renderer
+    app.add_url_rule("/", defaults={"path": ""}, methods=["get"], view_func=base_html_renderer)
+    app.add_url_rule("/<path:path>", methods=["get"], view_func=base_html_renderer)
+
+
+from app import views

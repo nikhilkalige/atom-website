@@ -1,0 +1,173 @@
+label
+  display block
+  margin 0 0 7px
+  padding-left 5px
+  color greigh2
+  font-weight 600
+  text-transform lowercase
+
+  &.checkbox
+    color npmred
+    font-size 14px
+
+textarea
+  normal-font()
+  font-size 16px
+  border 1px solid greigh5
+  margin 0 0
+  // padding 3%
+  width 100%
+  min-height 300px
+  border-radius 4px
+  color text-color
+  outline 0
+  resize none
+
+input[type=text],
+input[type=search],
+input[type=email],
+input[type=password]
+  -webkit-appearance none
+  normal-font()
+  font-size 16px
+  display block
+  width 100%
+  height 38px
+  // padding-left 2%
+  // padding-right 2%
+  border 1px solid greigh5
+  margin 0 0 20px
+  border-radius 4px
+  color text-color
+  outline 0
+
+input[type=text],
+input[type=search],
+input[type=email],
+input[type=password],
+textarea
+  padding 5px
+
+input[type=checkbox]
+  margin 0 6px 0 0
+
+select
+  display block
+  width 96%
+  margin 0 0 20px
+  outline 0
+
+input[type=submit], .button
+  normal-font()
+  border 0
+  border-radius 4px
+  text-align center
+  display block
+  padding 0 35px
+  margin 0 0 4px
+  height 47px
+  line-height 47px
+  color background-color
+  font-size 18px
+  background npmred
+  cursor pointer
+  text-transform lowercase
+  text-decoration none !important
+  -webkit-appearance none
+  clear both
+
+  &:hover
+    background greigh2
+
+input[type=file]
+  margin 0 0 50px
+
+.help-text
+  font-size 14px
+  color text-color-subdued
+  line-height 18px
+  margin -15px 0 22px
+  padding-left 8px
+  &.example
+    &:before
+      content: "Example: "
+
+form p
+  margin 25px 0 0
+  text-align: center
+
+  &.help-text
+    margin -15px 0 22px
+    text-align left
+
+  a
+    text-decoration none
+    margin 0 5px
+
+    &:hover
+      color greigh2
+
+.radio-group
+  margin 25px 0
+
+  &.floaty
+    @extend .no-float
+    input
+      vertical-align text-bottom
+    label
+      display block
+      float left
+      margin-right 50px
+      text-transform none
+      font-weight 400
+      height 30px
+      line-height 30px
+
+changeAvatarSize = 40px
+p.change-avatar
+  display block
+  margin 40px 0
+  padding 0
+  line-height changeAvatarSize
+  vertical-align top
+  a
+    vertical-align top
+  img
+    width changeAvatarSize
+    height changeAvatarSize
+    margin-right 10px
+    border-radius 3px
+
+.star
+  position absolute
+  top 29px
+  left -16px
+  display block
+  margin 10px 0
+  @media only screen and (max-width: mobileMaxWidth)
+    left auto
+    top 4px
+    right starHeight+2px
+
+  input[type=checkbox]
+    display none
+
+    & + label
+      font-size 16px
+      line-height starHeight
+      vertical-align top
+      color text-color
+      cursor pointer
+      &:before
+        transition transform 0.5s
+        font-size starHeight
+        color greigh5
+        margin-right 5px
+
+    &:checked + label:before
+      color npmred
+      transform rotate(360deg)
+
+
+.honey
+  display none

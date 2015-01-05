@@ -1,4 +1,4 @@
-from flask.ext.script import Manager, Server
+from flask.ext.script import Manager, Server, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 import app
 import os
@@ -20,13 +20,26 @@ handler.setLevel(logging.INFO)
 handler.setFormatter(formatter)
 app_instance.logger.addHandler(handler)
 
+
+# create context for shell access
+def _make_context():
+    ctx = app_instance.test_request_context()
+    ctx.push()
+    from app.packages import models
+    return {
+        "app": app_instance,
+        "db": app.db,
+        "models": models
+    }
+
 # init flask migrate
 migrate = Migrate(app_instance, app.db)
 
 manager = Manager(app_instance)
 manager.add_command("runserver", Server())
+manager.add_command("shell", Shell(make_context=_make_context, use_ipython=True))
 manager.add_command('db', MigrateCommand)
-manager.add_command('load', Load(app_instance, app.db))
+manager.add_command('load', Load(app_instance, app.db.session))
 server = Server(host="0.0.0.0", port=9000)
 
 if __name__ == "__main__":

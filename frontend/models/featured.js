@@ -3,5 +3,9 @@ var Package = require('./package');
 
 module.exports = AmpersandCollection.extend({
     model: Package,
-    url: '/api/package'
+    url: '/api/packages/featured',
+    parse: function(res, options) {
+        return res.results;
+    }
 });
+

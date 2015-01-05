@@ -1,0 +1,19 @@
+ul.errors
+  @extend .vanilla-list
+
+ul.errors, p.error
+  background error-background-color
+  color error-text-color
+  margin 20px 0
+  padding 0
+
+ul.errors li, p.error
+  line-height 1.4
+  padding 6px 0 6px 18px
+  position relative
+
+  &:before
+    position absolute
+    top 7px
+    left 0
+    content "\2716"
