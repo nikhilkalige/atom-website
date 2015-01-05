@@ -1,6 +1,6 @@
-from app import db
+from app import db, cache
+from utils import cache_timeout
 import datetime
-import json
 
 
 dependencies = db.Table(
@@ -43,6 +43,8 @@ class Package(db.Model):
     def get_package(self, name):
         return self.query.filter(self.name == name).first()
 
+    @cache_timeout
+    @cache.memoize()
     def get_json(self):
         json_data = dict()
         # add following parameters to dict

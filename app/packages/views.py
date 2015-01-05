@@ -3,9 +3,13 @@ from . import packages
 from models import Package, Downloads
 from flask import jsonify
 from datetime import timedelta
+from app import cache
+from utils import cache_timeout
 
 
 @packages.route('/stats', methods=['GET'])
+@cache_timeout
+@cache.cached()
 def stats():
     resp = dict()
     resp["count"] = Package.get_count()
@@ -16,6 +20,8 @@ def stats():
 
 
 @packages.route('/featured', methods=['GET'])
+@cache_timeout
+@cache.cached()
 def featured():
     package_list = requests.get("https://atom.io/api/packages/featured")
     theme_list = requests.get("https://atom.io/api/themes/featured")

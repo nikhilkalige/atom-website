@@ -1,6 +1,21 @@
 import requests
-from flask import current_app as app
 import re
+import datetime
+import functools
+from flask import current_app as app
+from app import cache
+
+
+def cache_timeout(f):
+    @functools.wraps(f)
+    def decorated_function(*args, **kwargs):
+        now = datetime.datetime.now()
+        deadline = now.replace(hour=23, minute=59)
+        period = (deadline - now)
+        f.cache_timeout = period.seconds
+        return f(*args, **kwargs)
+
+    return decorated_function
 
 
 def github_url(name, author):
@@ -26,13 +41,11 @@ def get_readme(name, author, headers):
 
 def get_count(name, author, string, headers):
     url = github_paginated_url(name, author, string)
-    print url
     data = requests.get(url, headers=headers)
     if data.links == {}:
         return len(data.json())
 
     last_url = data.links['last']['url']
-    print last_url
     match = re.match(r'.*page=(?P<no>\d+)', last_url)
     if match is None:
         return len(data.json())
@@ -43,6 +56,8 @@ def get_count(name, author, string, headers):
     return (int(page) - 1) * 5 + len(data.json())
 
 
+@cache_timeout
+@cache.memoize()
 def github_data(name, author, url):
     headers = {
         "Authorization": "token " + app.config.get("API_KEY"),
