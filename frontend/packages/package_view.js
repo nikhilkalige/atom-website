@@ -68,9 +68,11 @@ module.exports = AmpersandView.extend({
         "model.downloads.week": {
             type: "text",
             hook: "week"
+        },
+        "model.stars": {
+            type: "text",
+            hook: "stars"
         }
-
-
     },
     initialize: function(options) {
         self = this;

@@ -33,6 +33,5 @@ module.exports = AmpersandView.extend({
             point_size: 4,
             y_rug: true
         });
-        console.log("meee");
     }
 });
