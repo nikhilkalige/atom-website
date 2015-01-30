@@ -25,7 +25,7 @@ var paths = {
     "css_src": "frontend/static/css/index.styl",
     "html": "app/templates/index.html",
     "prod_js": "app/static/js/index.min.js",
-    "prod_css": "app/static/js/index.min.css"
+    "prod_css": "app/static/css/index.min.css"
 }
 
 var onError = function(error) {
