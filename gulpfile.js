@@ -14,7 +14,7 @@ var uglify = require('gulp-uglify');
 var git = require('gulp-git');
 var path = require('path');
 var size = require('gulp-size');
-var sequence = require('run-sequence');
+var sequence = require('gulp-sequence');
 var minify_css = require('gulp-minify-css');
 var rename = require("gulp-rename");
 
@@ -23,7 +23,9 @@ var paths = {
     "scripts_dst": "app/static/js",
     "css_dst": "app/static/css",
     "css_src": "frontend/static/css/index.styl",
-    "html": "app/templates/index.html"
+    "html": "app/templates/index.html",
+    "prod_js": "app/static/js/index.min.js",
+    "prod_css": "app/static/js/index.min.css"
 }
 
 var onError = function(error) {
@@ -34,13 +36,13 @@ var onError = function(error) {
  * Build all css files
  */
 gulp.task('css', function () {
-    gulp.src(paths.css_src)
+    return gulp.src(paths.css_src)
         .pipe(stylus({use: [nib()]}))
         .pipe(gulp.dest(paths.css_dst));
 });
 
 gulp.task('css-minify', function () {
-    gulp.src(path.join(paths.css_dst, 'index.css'))
+    return gulp.src(path.join(paths.css_dst, 'index.css'))
         .pipe(minify_css())
         .pipe(rename('index.min.css'))
         .pipe(gulp.dest(paths.css_dst));
@@ -181,14 +183,21 @@ gulp.task("git-merge", function() {
     git.merge('develop', function (err) {
         if (err) throw err;
     });
+    return;
+})
+
+gulp.task('git-assets', function() {
+    return gulp.src([paths.prod_css, paths.prod_js, paths.html])
+        .pipe(git.add())
+        .pipe(git.commit("Production assets"));
 })
 
 
 gulp.task("default", ["build-watch-js"]);
-gulp.task("prod", function(callback) {
-    sequence(['css', 'build-js']
+gulp.task("prod", sequence(
+        ['css', "scripts-vendors", "scripts-client"],
         ['git-merge'],
         ['css-minify', 'js-minify', 'html-prod'],
-        callback
-    );
-})
+        ['git-assets']
+    )
+);
