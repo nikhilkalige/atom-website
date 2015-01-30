@@ -16,3 +16,8 @@ The production ready files are in **production** branch
 The stylesheets for the website are taken from the [NPM](https://www.npmjs.com/) website. I have included the license from npmjs repo [@LICENSE](https://github.com/NikhilKalige/atom-website/blob/master/LICENSE). I hope this satisfies the licensing issues. Please let me know if you have any issues regarding this or any other content i have utilized in the making this website. I would happily acknowledge your rights or remove it for you.
 
 Keys are encrypted using [git-crypt](https://www.agwa.name/projects/git-crypt/)
+
+
+
+###Cronjob
+30 23 * * * ~/(path to virtualenv)/bin/python ~/(path to project)/manage.py load
