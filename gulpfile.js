@@ -175,13 +175,13 @@ gulp.task('html-prod', function() {
 gulp.task("git-merge", function() {
     // switch to production branch
     gulp.task('checkout', function(){
-        git.checkout('branchName', function (err) {
+        git.checkout('production', function (err) {
             if (err) throw err;
         });
     });
 
     gulp.task('merge', function(){
-        git.merge('master', function (err) {
+        git.merge('develop', function (err) {
         if (err) throw err;
       });
     });
@@ -192,6 +192,7 @@ gulp.task("default", ["build-watch-js"]);
 gulp.task("prod", function(callback) {
     sequence(['css', 'build-js']
         ['git-merge'],
+        ['css-minify', 'js-minify', 'html-prod'],
         callback
     );
 })
