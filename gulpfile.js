@@ -213,7 +213,7 @@ gulp.task("default", ["build-watch-js"]);
 gulp.task("prod", sequence(
         ['css', "scripts-production"],
         ['git-merge'],
-        ['css-minify', 'js-minify', 'html-prod'],
+        ['css-minify', 'js-minify'],
         ['git-assets']
     )
 );
