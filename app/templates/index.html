@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <!-- build:css {{url_for("static", filename="css/index.min.css")}} -->
+    <!-- build:css -->
         <link rel="stylesheet" href="{{url_for("static", filename="css/index.css")}}" type="text/css">
     <!-- endbuild -->
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div data-hook="container"></div>
-    <!-- build:js {{url_for("static", filename="js/index.min.js")}} -->
+    <!-- build:js -->
         <script src="{{ url_for("static", filename="js/vendors.js") }}"></script>
         <script src="{{ url_for("static", filename="js/app.js") }}"></script>
     <!-- endbuild -->
