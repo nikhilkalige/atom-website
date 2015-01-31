@@ -12,7 +12,7 @@ LOG_FILE = basedir + "/logs/package_loader.log"
 
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'migrations')
 
-app_instance = app.create_app("DEVELOPMENT")
+app_instance = app.create_app()
 # add logging
 formatter = logging.Formatter('%(asctime)s:  %(message)s')
 handler = RotatingFileHandler(LOG_FILE, maxBytes=512 * 1024, backupCount=5)
