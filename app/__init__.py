@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from config import config
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -8,7 +9,10 @@ from extensions import cache
 db = SQLAlchemy()
 
 
-def create_app(environment):
+def create_app(environment='DEVELOPMENT'):
+    if os.environ.get("ATOM_SETTINGS") == "PRODUCTION":
+        environment = "PRODUCTION"
+
     app = Flask(__name__)
     app.config.from_object(config[environment])
     db.init_app(app)
