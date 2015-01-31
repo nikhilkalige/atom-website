@@ -177,11 +177,11 @@ gulp.task('html-prod', function() {
         .pipe(htmlreplace({
             css: {
                 src: 'index.min.css',
-                tpl: '<link rel="stylesheet" href="{{url_for("static", filename="%s")}}" type="text/css">'
+                tpl: '<link rel="stylesheet" href="{{url_for("static", filename="css/%s")}}" type="text/css">'
             },
             js: {
                 src: 'index.min.js',
-                tpl: '<script src="{{ url_for("static", filename="%s") }}"></script>'
+                tpl: '<script src="{{ url_for("static", filename="js/%s") }}"></script>'
             }
         }))
         .pipe(gulp.dest('./'));
@@ -213,7 +213,7 @@ gulp.task("default", ["build-watch-js"]);
 gulp.task("prod", sequence(
         ['css', "scripts-production"],
         ['git-merge'],
-        ['css-minify', 'js-minify', 'html-prod'],
+        ['css-minify', 'js-minify'],
         ['git-assets']
     )
 );
