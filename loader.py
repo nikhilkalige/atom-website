@@ -43,6 +43,7 @@ class Load(Command):
 
     def __init__(self, app, db):
         self.app = app
+        self.app.debug = True
         self.dbsession = db
         self.start_time = time.time()
         self.no_of_updates = 0
