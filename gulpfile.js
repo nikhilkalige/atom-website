@@ -7,7 +7,6 @@ var gulp = require("gulp");
 var gutil = require('gulp-util');
 var nib = require('nib');
 var stylus = require('gulp-stylus');
-var useref = require('gulp-useref');
 var plugins = require('gulp-load-plugins')();
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -17,6 +16,7 @@ var size = require('gulp-size');
 var sequence = require('gulp-sequence');
 var minify_css = require('gulp-minify-css');
 var rename = require("gulp-rename");
+var htmlreplace = require('gulp-html-replace');
 
 var paths = {
     //"scripts_dst": "public/js"
@@ -162,12 +162,17 @@ gulp.task("build-watch-js", ["scripts-vendors", "scripts-watch-client"]);
  * update html for production files
  */
 gulp.task('html-prod', function() {
-    var assets = useref.assets();
-
     return gulp.src([paths.html], {base: './'})
-        .pipe(assets)
-        .pipe(assets.restore())
-        .pipe(useref())
+        .pipe(htmlreplace({
+            css: {
+                src: 'index.min.css',
+                tpl: '<link rel="stylesheet" href="{{url_for("static", filename="%s")}}" type="text/css">'
+            },
+            js: {
+                src: 'index.min.js',
+                tpl: '<script src="{{ url_for("static", filename="%s") }}"></script>'
+            }
+        }))
         .pipe(gulp.dest('./'));
 });
 
@@ -180,7 +185,7 @@ gulp.task("git-merge", function() {
         if (err) throw err;
     });
 
-    git.merge('develop', function (err) {
+    git.merge('master', function (err) {
         if (err) throw err;
     });
     return;
