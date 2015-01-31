@@ -25,7 +25,8 @@ var paths = {
     "css_src": "frontend/static/css/index.styl",
     "html": "app/templates/index.html",
     "prod_js": "app/static/js/index.min.js",
-    "prod_css": "app/static/css/index.min.css"
+    "prod_css": "app/static/css/index.min.css",
+    "full_js": "app/static/js/app.full.js",
 }
 
 var onError = function(error) {
@@ -93,10 +94,17 @@ var scripts = function(options) {
 
 var deps = [
     "ampersand-collection",
+    "ampersand-model",
+    "ampersand-rest-collection",
     "ampersand-router",
     "ampersand-state",
     "ampersand-subcollection",
-    "ampersand-view"
+    "ampersand-view",
+    "ampersand-view-switcher",
+    "d3",
+    "jquery",
+    "metrics-graphics",
+    "moment"
 ];
 
 /**
@@ -137,18 +145,21 @@ gulp.task("scripts-watch-client", function() {
     });
 });
 
+gulp.task("scripts-production", function() {
+    return scripts({
+        name: "app.full.js",
+        source: "./frontend/app.js",
+    });
+});
+
 /**
  * combine vendors and clients into single build for production
  */
 gulp.task('js-minify', function() {
-    var src = [
-        path.join(paths.scripts_dst, 'vendors.js'),
-        path.join(paths.scripts_dst, 'app.js')
-    ];
-    return gulp.src(src)
-        .pipe(concat('index.min.js'))
+    return gulp.src(paths.full_js)
         .pipe(size({ showFiles: true }))
         .pipe(uglify())
+        .pipe(rename('index.min.js'))
         .pipe(gulp.dest(paths.scripts_dst));
 });
 
@@ -200,7 +211,7 @@ gulp.task('git-assets', function() {
 
 gulp.task("default", ["build-watch-js"]);
 gulp.task("prod", sequence(
-        ['css', "scripts-vendors", "scripts-client"],
+        ['css', "scripts-production"],
         ['git-merge'],
         ['css-minify', 'js-minify', 'html-prod'],
         ['git-assets']
