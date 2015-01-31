@@ -28,8 +28,16 @@ class Testing(Default):
     SQLALCHEMY_DATABASE_URI = 'mysql://root:' + \
         parser.get("test", "db_password").strip('"') + '@localhost/atom-website-test'
 
+
+class Production(Default):
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:' + \
+        parser.get("production", "db_password").strip('"') + \
+        '@localhost/atom'
+
+
 config = {
     'DEFAULT': Default,
     'DEVELOPMENT': Developement,
-    'TESTING': Testing
+    'TESTING': Testing,
+    'PRODUCTION': Production
 }
