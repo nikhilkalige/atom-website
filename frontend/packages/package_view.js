@@ -80,6 +80,9 @@ module.exports = AmpersandView.extend({
         this.model.on("change", function() {
             app.router.trigger("page", self);
         })
+        this.model.on("error", function() {
+            app.router.trigger("error4");
+        })
         this.model.fetch_model(options.name);
     }
 });
