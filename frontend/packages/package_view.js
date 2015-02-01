@@ -76,6 +76,7 @@ module.exports = AmpersandView.extend({
     },
     initialize: function(options) {
         self = this;
+        this.title = captialize(options.name);
         this.model = new PackageModel();
         this.model.on("change", function() {
             app.router.trigger("page", self);
@@ -86,3 +87,7 @@ module.exports = AmpersandView.extend({
         this.model.fetch_model(options.name);
     }
 });
+
+var captialize = function(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}

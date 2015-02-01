@@ -32,9 +32,10 @@ module.exports = AmpersandView.extend({
         this.page_switcher(new ErrorView({}));
     },
     page_switcher: function(view) {
-        //console.log("switcher");
-        if(view != null)
+        if(view != null) {
+            document.title = view.title;
             this.switcher.set(view);
+        }
     },
     search: function(event) {
         event.preventDefault();

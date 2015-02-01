@@ -15,7 +15,7 @@ module.exports = Router.extend({
         this.trigger("page", new IndexView({}));
     },
     name_route: function(name) {
-        console.log(name);
+        //console.log(name);
         this.redirectTo("package/" + name);
     },
     packages: function(name) {
