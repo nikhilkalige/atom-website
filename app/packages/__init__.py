@@ -54,8 +54,12 @@ def api_creator(apimanager):
     apimanager.create_api(models.Package, primary_key='name',
                           collection_name='search',
                           methods=['GET'],
+                          results_per_page=24,
                           include_methods=['get_json'],
                           include_columns=[],
                           preprocessors={
                               'GET_MANY': [search_filter]
+                          },
+                          postprocessors={
+                              'GET_MANY': [post_get_many]
                           })
