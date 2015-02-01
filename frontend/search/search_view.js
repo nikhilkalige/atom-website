@@ -3,11 +3,20 @@ var SearchCollection = require("./search_model");
 var PackageTemplate = require("../index/templates/feature.hbs");
 var SearchTemplate = require("./templates/search_view.hbs");
 var ItemView = require("../index/feature_view");
+var PaginateView = require("./paginate_view");
 
 module.exports = AmpersandView.extend({
     template: SearchTemplate,
     props: {
-        query_string: 'string'
+        query_string: 'string',
+    },
+    derived: {
+        title: {
+            deps: ['query_string'],
+            fn: function() {
+                return "Results for " + this.query_string;
+            }
+        }
     },
     bindings: {
         "collection.results": {
@@ -33,17 +42,25 @@ module.exports = AmpersandView.extend({
         }
     },
     initialize: function(options) {
-        this.query_string = options.param;
-        this.collection = new SearchCollection();
-        this.collection.search(this.query_string);
-    },
-    render: function() {
         var self = this;
+        this.query_string = options.name;
+        this.collection = new SearchCollection();
+        this.collection.search(this.query_string, options.page_no);
         this.collection.once("reset", function() {
-            self.renderCollection(self.collection, ItemView, self.queryByHook("widgets"));
             self.trigger('change:collection.pages');
             self.trigger('change:collection.results');
+            app.router.trigger("page", self);
         });
+    },
+    render: function() {
         this.renderWithTemplate();
+        this.renderCollection(this.collection, ItemView, this.queryByHook("widgets"));
+        if(this.collection.pages > 1) {
+            this.renderSubview(new PaginateView({
+                pages: this.collection.pages,
+                current_page: this.collection.current_page
+            }),
+            this.queryByHook('paginate'));
+        }
     }
 });

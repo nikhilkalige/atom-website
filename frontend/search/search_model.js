@@ -8,7 +8,11 @@ module.exports = AmpersandCollection.extend({
     results: 0,
     param: "",
     url: function() {
-        return ('/api/search?q={"name": "' + this.param + '"}');
+        var url = '/api/search?q={"name": "' + this.param + '"}';
+        if(isNaN(this.page_no) == false)
+            url = url + "&page=" + this.page_no;
+
+        return url;
     },
     parse: function(res, options) {
         this.pages = res.total_pages;
@@ -16,8 +20,9 @@ module.exports = AmpersandCollection.extend({
         this.results = res.num_results;
         return res.objects;
     },
-    search: function(param) {
+    search: function(param, page_no) {
         this.param = param;
+        this.page_no = page_no;
         this.fetch({reset: true});
     }
 });
