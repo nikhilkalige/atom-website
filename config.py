@@ -5,7 +5,7 @@ import ConfigParser
 os.environ['PYTHONINSPECT'] = 'True'
 basedir = os.path.abspath(os.path.dirname(__file__))
 parser = ConfigParser.ConfigParser()
-parser.read("secret_config.cfg")
+parser.read(os.path.join(basedir, "secret_config.cfg"))
 
 
 class Default:
