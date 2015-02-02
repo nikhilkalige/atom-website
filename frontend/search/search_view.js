@@ -51,6 +51,9 @@ module.exports = AmpersandView.extend({
             self.trigger('change:collection.results');
             app.router.trigger("page", self);
         });
+        this.collection.on("error", function() {
+            app.router.trigger("error4");
+        })
     },
     render: function() {
         this.renderWithTemplate();
