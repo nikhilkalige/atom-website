@@ -3,22 +3,27 @@ var Package = require('../models/package');
 
 module.exports = AmpersandCollection.extend({
     model: Package,
+    pages: 0,
+    current_page: 0,
+    results: 0,
     param: "",
     url: function() {
-        return ('/api/package?q={"filters":[' +
-            '{"name": "name", "val": "%' + this.param + '%", "op": "like"},' +
-            '{"name": "keywords__name", "val":"' + this.param + '", "op": "any"}' +
-            '],"disjunction":true}');
+        var url = '/api/search?q={"name": "' + this.param + '"}';
+        if(isNaN(this.page_no) == false)
+            url = url + "&page=" + this.page_no;
+
+        return url;
     },
     parse: function(res, options) {
-        return res.results;
+        this.pages = res.total_pages;
+        this.current_page = res.page;
+        this.results = res.num_results;
+        return res.objects;
     },
-    search: function(param) {
+    search: function(param, page_no) {
         this.param = param;
-        this.fetch();
+        this.page_no = page_no;
+        this.fetch({reset: true});
     }
 });
 
-    /*num_results: 0,
-    num_pages: 0,
-*/

@@ -1,13 +1,5 @@
 <div>
-    <h2 class="centered ruled">
-        {{#if totalResults}}
-            {{totalResults}}
-        {{else}}
-            Sorry, no
-        {{/if}}
-        result{{#unless singleResult}}s{{/unless}}
-        for
-        <a href="/search?q={{q}}&page={{page}}">&lsquo;{{q}}&rsquo;</a>
-    </h2>
+    <h2 class="centered ruled" data-hook="results"></h2>
     <ul class="columnar" data-hook="widgets"></ul>
+    <div data-hook="paginate"></div>
 </div>

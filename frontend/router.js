@@ -15,7 +15,7 @@ module.exports = Router.extend({
         this.trigger("page", new IndexView({}));
     },
     name_route: function(name) {
-        console.log(name);
+        //console.log(name);
         this.redirectTo("package/" + name);
     },
     packages: function(name) {
@@ -23,7 +23,12 @@ module.exports = Router.extend({
         new PackageView({name: name});
     },
     search: function(param) {
-        this.trigger("page", new SearchView({param: param}));
+        name = param.split('&')[0];
+        no = param.split('&')[1]
+        if(no != null)
+            no = no.split("page=")[1]
+
+        new SearchView({name: name, page_no: no});
     },
     setFilter: function (arg) {
         app.me.mode = arg || 'all';

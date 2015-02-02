@@ -8,6 +8,7 @@ var FeatureCollection = require("../models/featured")
 
 module.exports = AmpersandView.extend({
     template: Template,
+    title: "Atom",
     events: {},
     subviews: {
         stats: {

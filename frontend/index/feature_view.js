@@ -4,12 +4,16 @@ var Template = require("./templates/feature.hbs");
 
 module.exports = AmpersandView.extend({
     template: Template,
+    derived: {
+        url: {
+            deps: ["model.name"],
+            fn: function() {
+                return "/package/" + this.model.name;
+            }
+        }
+    },
     bindings: {
-        "model.name": [
-            {
-                type: "text",
-                hook: "link",
-            },
+        "url": [
             {
                 type: "attribute",
                 hook: "link",
@@ -27,6 +31,10 @@ module.exports = AmpersandView.extend({
             }
 
         ],
+        "model.name": {
+            type: "text",
+            hook: "link",
+        },
         "model.description": {
             type: "text",
             selector: ".description",

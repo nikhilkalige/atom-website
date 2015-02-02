@@ -17,12 +17,14 @@ var sequence = require('gulp-sequence');
 var minify_css = require('gulp-minify-css');
 var rename = require("gulp-rename");
 var htmlreplace = require('gulp-html-replace');
+var autoprefixer = require('gulp-autoprefixer');
 
 var paths = {
     //"scripts_dst": "public/js"
     "scripts_dst": "app/static/js",
     "css_dst": "app/static/css",
     "css_src": "frontend/static/css/index.styl",
+    "css_glob": "frontend/static/css/**/*.styl",
     "html": "app/templates/index.html",
     "prod_js": "app/static/js/index.min.js",
     "prod_css": "app/static/css/index.min.css",
@@ -39,6 +41,10 @@ var onError = function(error) {
 gulp.task('css', function () {
     return gulp.src(paths.css_src)
         .pipe(stylus({use: [nib()]}))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(gulp.dest(paths.css_dst));
 });
 
@@ -48,6 +54,10 @@ gulp.task('css-minify', function () {
         .pipe(rename('index.min.css'))
         .pipe(gulp.dest(paths.css_dst));
 });
+
+gulp.task('css:watch', function() {
+    gulp.watch([paths.css_glob], ["css"]);
+})
 
 /**
  * uses browserify and minifies code in production build

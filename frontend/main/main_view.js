@@ -2,6 +2,7 @@ var AmpersandView = require("ampersand-view");
 var AmpersandViewSwitcher = require('ampersand-view-switcher');
 var PackageModel = require("../models/package");
 var Template = require("./templates/index_search.hbs");
+var ErrorView = require("../error/error_404_view");
 
 module.exports = AmpersandView.extend({
     template: Template,
@@ -15,6 +16,7 @@ module.exports = AmpersandView.extend({
             self.render();
         })
         this.listenTo(app.router, "page", this.page_switcher);
+        this.listenTo(app.router, "error4", this.error_switcher);
 
     },
     render: function() {
@@ -25,15 +27,20 @@ module.exports = AmpersandView.extend({
             }
         });
     },
+    error_switcher: function() {
+        app.router.trigger("page");
+        this.page_switcher(new ErrorView({}));
+    },
     page_switcher: function(view) {
-        console.log("switcher");
-        if(view != null)
+        if(view != null) {
+            document.title = view.title;
             this.switcher.set(view);
+        }
     },
     search: function(event) {
         event.preventDefault();
         value = this.query("#site-search").value;
-        console.log("search:"+ encodeURIComponent(value) )
+        //console.log("search:"+ encodeURIComponent(value) )
         if(value != "") {
             // query the server for data
             app.router.redirectTo("search/" + encodeURIComponent(value));
