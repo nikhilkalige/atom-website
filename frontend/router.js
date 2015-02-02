@@ -11,6 +11,9 @@ module.exports = Router.extend({
         "search/:param": "search",
         ":name": "name_route"
     },
+    initialize: function() {
+        this.bind('route', this.track_page);
+    },
     index: function() {
         this.trigger("page", new IndexView({}));
     },
@@ -29,6 +32,11 @@ module.exports = Router.extend({
             no = no.split("page=")[1]
 
         new SearchView({name: name, page_no: no});
+    },
+    track_page: function() {
+        ga('send', 'pageview', {
+            page: "/" + this.history.getFragment()
+        });
     },
     setFilter: function (arg) {
         app.me.mode = arg || 'all';
