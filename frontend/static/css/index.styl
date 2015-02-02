@@ -2,7 +2,7 @@
 @import "graph"
 
 .error-404
-  text-align: center;
+  text-align: center
 
   h1
     font-weight bold
@@ -18,3 +18,94 @@
 
     @media only screen and (max-width: mobileMaxWidth)
       font-size 2em
+
+.pojoro
+  background: rgba( 255, 255, 255, 1)
+  background: radial-gradient(ellipse at center, rgba(255,255,255,1) 40%,rgba(51,51,51,1) 100%)
+  border-radius: 100%
+  box-shadow: 0 0 0 0.2em rgb(146,89,149), 0 0 0.1em 0.55em rgb(176,89,179), inset 0 0.2em 0 0 rgb(136,79,139)
+  color: rgba( 40, 40, 40, 0.8)
+  line-height: 1.1em
+  padding-left: 0.18em
+  cursor: pointer
+  position: relative
+  margin: 5em auto 0 auto
+  width: 1em
+  height: 1em
+  transform-origin: center
+  -webkit-font-smoothing: antialiased
+  user-select: none
+  transition: all 0.8s ease-in-out
+  animation: eye 2.2s ease-in-out infinite, body 1.15s 1.8s linear infinite
+  transform: scaleY(0.9) scaleX(0.95) translateZ(0)
+
+  &:hover
+    transform: scaleY(0.9) scaleX(0.95) translateZ(0)
+
+.pojoro:before,
+.pojoro:after
+  background: rgba(0,0,0,0)
+  border-radius: 100%
+  content: ""
+  display: none
+  position: absolute
+  width: 1em
+  height: 0.1em
+  -webkit-filter: blur(1px)
+  transition: all 0.2s
+  animation-duration: 0.2s
+  animation-iteration-count: infinite
+  animation-timing-function: ease-in-out
+
+.pojoro:before
+  top: 25%
+  left: 1.45em
+  margin-left: -1em
+  transform-origin: left
+  transform: rotate(-60deg)
+  animation-name: wings
+
+.pojoro:after
+  top: 25%
+  left: -2.2em
+  margin-left: 1em
+  transform-origin: right
+  transform: rotate(60deg)
+  animation-name: wings2
+
+.pojoro:before,
+.pojoro:after
+  background: rgba(100,100,100,0.8)
+  display: block
+  margin-left: 0em
+  width: 2em
+  height: 0.3em
+
+@keyframes eye
+  5%, 10%
+    line-height: 1.2em
+    padding-left: 0em
+
+  15%, 20%
+    line-height: 1.15em
+    padding-left: 0.4em
+
+  25%
+    box-shadow: 0 0 0 0.2em rgb(146,89,149), 0 0 0.1em 0.55em rgb(166,89,169), inset 0 1em 0 0 rgb(136,79,139)
+
+  23%, 27%
+    box-shadow: 0 0 0 0.2em rgb(146,89,149), 0 0 0.1em 0.55em rgb(166,89,169), inset 0 0.2em 0 0 rgb(136,79,139)
+
+@keyframes body
+  50%
+    width: 1.4em
+    height: 1.4em
+
+@keyframes wings
+  50%
+    transform: rotate(65deg)
+
+@keyframes wings2
+  50%
+    transform: rotate(-65deg)
+
