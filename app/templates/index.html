@@ -15,6 +15,27 @@
 </head>
 <body>
     <div data-hook="container"></div>
+    <footer>
+        <div class="container">
+            <ul class="columnar">
+                <li>
+                    <h2>
+                        <a href="http://shortcircuits.io">Shortcircuits.io</a>
+                    </h2>
+                </li>
+                <li>
+                    <p>
+                        Built using <a href="http://flask.pocoo.org">Flask</a> and <a href="https://ampersandjs.com">AmpersandJS</a>. Source available on <a href="https://github.com/nikhilkalige/atom-website">Github</a>
+                    </p>
+                </li>
+                <li class="bread">
+                    <p>
+                        <a href="http://shortcircuits.io">Home</a> / <a href="http://shortcircuits.io/about">About</a> / <a href="http://shortcircuits.io/contact">Contact</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </footer>
     <!-- build:js -->
         <script src="{{ url_for("static", filename="js/vendors.js") }}"></script>
         <script src="{{ url_for("static", filename="js/app.js") }}"></script>
