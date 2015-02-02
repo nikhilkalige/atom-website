@@ -17,7 +17,7 @@ The stylesheets for the website are taken from the [NPM](https://www.npmjs.com/)
 
 Keys are encrypted using [git-crypt](https://www.agwa.name/projects/git-crypt/)
 
-
+Credit [codrops](http://tympanus.net/codrops/2013/05/22/examples-of-pseudo-elements-animations-and-transitions/) for 404 fly animation
 
 ###Cronjob
 30 23 * * * ~/(path to virtualenv)/bin/python ~/(path to project)/manage.py load
