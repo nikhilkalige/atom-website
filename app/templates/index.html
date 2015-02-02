@@ -2,14 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Atom</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Packages for Atom, a text editor by Github.">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,initial-scale=1,user-scalable=yes">
     <!-- build:css -->
         <link rel="stylesheet" href="{{url_for("static", filename="css/index.css")}}" type="text/css">
     <!-- endbuild -->
+    <link rel="icon" type="image/png" href="{{url_for("static", filename="images/favicon-16x16.png")}}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{url_for("static", filename="images/favicon-32x32.png")}}" sizes="32x32">
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div data-hook="container"></div>
+    <footer>
+        <div class="container">
+            <ul class="columnar">
+                <li>
+                    <h2>
+                        <a href="http://shortcircuits.io">Shortcircuits.io</a>
+                    </h2>
+                </li>
+                <li>
+                    <p>
+                        Built using <a href="http://flask.pocoo.org">Flask</a> and <a href="https://ampersandjs.com">AmpersandJS</a>. Source available on <a href="https://github.com/nikhilkalige/atom-website">Github</a>
+                    </p>
+                </li>
+                <li class="bread">
+                    <p>
+                        <a href="http://shortcircuits.io">Home</a> / <a href="http://shortcircuits.io/about">About</a> / <a href="http://shortcircuits.io/contact">Contact</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </footer>
     <!-- build:js -->
         <script src="{{ url_for("static", filename="js/vendors.js") }}"></script>
         <script src="{{ url_for("static", filename="js/app.js") }}"></script>

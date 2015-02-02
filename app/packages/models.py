@@ -52,7 +52,7 @@ class Package(db.Model):
             json_data[label] = getattr(self, label)
 
         version_obj = self.version.order_by(Version.id.desc()).first()
-        version_data = version_obj.get_json()
+        version_data = version_obj.get_json() if version_obj is not None else {}
         downloads_data = Downloads.get_json(self.downloads)
         deps_models = self.dependencies.all()
         keys_models = self.keywords.all()

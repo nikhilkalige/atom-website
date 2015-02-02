@@ -1,6 +1,6 @@
 {
   "name": "atom-website",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A website to display packages for atom editor",
   "main": "index.js",
   "repository": {
@@ -45,6 +45,7 @@
   "devDependencies": {
     "browserify": "^7.0.0",
     "gulp": "^3.8.10",
+    "gulp-autoprefixer": "^2.1.0",
     "gulp-concat": "^2.4.3",
     "gulp-git": "^0.5.6",
     "gulp-html-replace": "^1.4.3",
