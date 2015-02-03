@@ -1,6 +1,6 @@
 {
   "name": "atom-website",
-  "version": "0.2.10",
+  "version": "0.2.17",
   "description": "A website to display packages for atom editor",
   "main": "index.js",
   "repository": {
