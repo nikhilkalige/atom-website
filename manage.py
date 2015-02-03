@@ -76,13 +76,13 @@ def sitemap():
         import datetime
         from app.packages.models import Package, Downloads
 
-        yield 'index', {}, datetime.datetime.now().isoformat(), "daily", 1
-        yield 'search', {}, datetime.datetime.now().isoformat(), "daily", 0.5
+        yield 'index', {}, datetime.datetime.today().date().isoformat(), "daily", 1
+        yield 'search', {}, datetime.datetime.today().date().isoformat(), "daily", 0.5
 
         package_list = Package.query.all()
         for item in package_list:
             latest = item.downloads.order_by(Downloads.date.desc()).first()
-            time = latest.date.isoformat() if latest is not None else ""
+            time = latest.date.date().isoformat() if latest is not None else ""
             yield 'package', {'name': item.name}, time, "daily", 0.5
 
     out = sitemap.sitemap()
