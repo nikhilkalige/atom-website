@@ -24,3 +24,4 @@ semantic-version==2.3.1
 wsgiref==0.1.2
 wsgi-intercept==0.9.1
 gunicorn
+git+https://github.com/inveniosoftware/flask-sitemap.git#egg=flask-sitemap
