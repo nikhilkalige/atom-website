@@ -12,7 +12,7 @@ module.exports = Router.extend({
         ":name": "name_route"
     },
     initialize: function() {
-        this.bind('route', this.track_page);
+        //this.bind('route', this.track_page);
     },
     index: function() {
         this.trigger("page", new IndexView({}));
