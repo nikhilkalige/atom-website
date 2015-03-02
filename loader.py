@@ -242,6 +242,7 @@ class Load(Command):
                     package_model = self.update_package(package_model, meta, name,
                                                         license_model, deps_model,
                                                         keys_model)
+                    self.dbsession.add(package_model)
                     self.update_version(package_model, meta)
                     if package_model is None:
                         continue
